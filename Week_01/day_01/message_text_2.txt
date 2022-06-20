@@ -1,0 +1,4 @@
+Hello.  
+My favourite film of all time is Akira. 
+I have done some coding before on Python and Raspberry Pi.
+Watch this space!

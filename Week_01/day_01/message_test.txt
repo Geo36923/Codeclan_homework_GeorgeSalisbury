@@ -1,0 +1,4 @@
+Hello.  
+This is my first text file for my homework.
+For some reason, there was git in my whole desktop instead of just in the Codeclan folder.
+Don't ask me why.
