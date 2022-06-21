@@ -1,0 +1,46 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+library(CodeClanData)
+```
+
+```{r}
+CodeClanData::drinks_content
+```
+
+```{r}
+library(CodeClanData)
+drinks_content
+```
+
+```{r}
+nrow(drinks_content)
+```
+
+```{r}
+ncol(drinks_content)
+```
+```{r}
+str(drinks_content)
+```
+
+```{r}
+select(drinks_content, Beverage_category, Beverage, Beverage_prep, Calories)
+```
+
+```{r}
+select(drinks_content, Calories)
+
+```
+
+```{r}
+drop_na(drinks_content)
+```
+

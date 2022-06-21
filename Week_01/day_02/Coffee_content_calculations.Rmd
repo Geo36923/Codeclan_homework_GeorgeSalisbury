@@ -6,3 +6,19 @@ output: html_notebook
 CodeClanData::drinks_content
 ```
 
+```{r}
+select(drinks_content, Beverage_category, Beverage, Beverage prep, Calories)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+tidyverse_logo()
+```
+
+```{r}
+library()
+```
+
