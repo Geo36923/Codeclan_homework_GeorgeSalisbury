@@ -36,11 +36,39 @@ select(drinks_content, Beverage_category, Beverage, Beverage_prep, Calories)
 ```
 
 ```{r}
-select(drinks_content, Calories)
+filter(drinks_content, Beverage_category)
 
 ```
 
 ```{r}
-drop_na(drinks_content)
+drop_na(drinks_content, Calories)
+```
+
+```{r}
+sum(drinks_content, Calories - 135)
+```
+
+```{r}
+arrange(drinks_content, Calories)
+```
+
+```{r}
+sum(drinks_content, Calories - 135)
+```
+
+```{r}
+calorie_diff <- c(drinks_content, Calories - 135)
+
+calorie_diff(Beverage_category)
+```
+```{r}
+summarise(drinks_content(mean(Calories)))
+```
+
+```{r}
+calorie_diff <- c(drinks_content, Calories - 135)
+```
+```{r}
+
 ```
 

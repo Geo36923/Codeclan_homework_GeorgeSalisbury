@@ -1,0 +1,5 @@
+The database "drinks_content" contains 18 variables in total.  
+There are 242 rows and 18 columns.  
+ncol(drinks_content) = 18 
+nrow(drinks_content = 242
+The types of variables include doubles, characters, etc.
