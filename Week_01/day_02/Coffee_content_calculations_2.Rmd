@@ -69,6 +69,13 @@ summarise(drinks_content(mean(Calories)))
 calorie_diff <- c(drinks_content, Calories - 135)
 ```
 ```{r}
+arrange(drinks_content, Calories)
+```
+```{r}
+drinks_content
+```
 
+```{r}
+calorie_diff <- 
 ```
 
