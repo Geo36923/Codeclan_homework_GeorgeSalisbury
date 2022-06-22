@@ -1,0 +1,27 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+{janitor}
+drop_na
+
+'```{r}
+
+`rename()`
+`drop_na()`
+`coalesce()`
+`janitor::clean_names()`
+```{r}
+library(tidyverse)
+```
+```{r}
+install.packages('janitor')
+```
+
+```{r}
+video_games <- read_csv('data/steam-200k-sample.csv')
+
+```
+
+

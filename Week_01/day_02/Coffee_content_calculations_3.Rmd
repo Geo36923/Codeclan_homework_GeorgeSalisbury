@@ -1,0 +1,105 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+library(CodeClanData)
+drinks_content
+```
+
+```{r}
+head(drinks_content, 5)
+
+tail(drinks_content, 5)
+
+dim(drinks_content)
+
+names(drinks_content)
+```
+
+```{r}
+drinks_content %>% 
+  select(Beverage_category, Beverage, Beverage_prep,
+Calories) %>% 
+  filter(is.na(Calories)) %>% 
+  summarise(count_of_missing_categories = n())
+```
+
+```{r}
+drink_calories <- drinks_content %>%
+  mutate(calorie_diff = Calories - 135)
+```
+
+```{r}
+most_calories <- drink_calories %>% 
+  group_by(Beverage_category) %>% 
+  
+```
+
+You can break code down into smaller chunks to make them more manageable.
+
+```{r}
+average_calories <- pull(summarise(drinks_content, mean_cals = mean(Calories)))
+
+average_calories
+filter(drinks_content, (mean(Calories >= average_calories) == TRUE)
+       
+filter(drinks_content,
+       Calories > average_calories)
+```
+
+```{r}
+drink_col <- c("Beverage_category", "Beverage", "Beverage_prep", "Calories")
+drink_cal_dat <-  select(drinks_content, all_of(drink_col))
+
+average_Calorie <- mean(pull)
+```
+
+```{r}
+mean_prep <- mean(pull(summarised_prep, mean_calories_pre))
+mean_prep
+```
+
+```{r}
+mutate(summarised_prep, calories_above_mean = mean_calories_pre > mean_prep)
+```
+
+```{r}
+iris %>% 
+  group_by(Species) %>% 
+  summarize(ave_sepal_length = mean(Sepal.Length))
+
+mean(pull(iris, sepal_Length))
+```
+
+```{r}
+iris %>% 
+  group_by(Species) %>% 
+  summarize(ave_sepal_length = mean(Sepal.Length), Petal.Length = Petal.Length) %>% 
+  summarize(mean_thing = mean(ave_sepal_length))
+```
+
+The more variables you create, the slower your machine will run.
+We used to overwrite our intermediates, but we might want to take a look at old variables.
+You just have to highlight the parts you're interested in to see if it's functional.
+Pipes work great as a line breaker.
+Space it out in a way that you understand.
+Make your code make sense for you.
+```{r}
+drinks_content %>% select(Beverage_category,
+                          Beverage, Beverage_prep, Calories) %>% 
+  filter(is.na(Calories)) %>% 
+  summarise(count_of_missing_calories = n())
+```
+
+```{r}
+x <- c(1:4)
+mutate(x, y = x + 1)
+```
+
