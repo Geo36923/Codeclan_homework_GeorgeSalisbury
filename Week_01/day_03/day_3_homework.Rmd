@@ -54,8 +54,8 @@ movies %>%
 ```
 
 ```{r}
-movies_selected %>% 
-  
+movies %>% 
+  na_if(runtime == 0)
 ```
 
 ```{r}
@@ -70,5 +70,10 @@ movies %>%
 
 ```{r}
 summary(movies, runtime < 10)
+```
+
+```{r}
+movies_runtime <- movies %>% 
+  
 ```
 
