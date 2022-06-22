@@ -45,7 +45,12 @@ movies %>%
 ```{r}
 movies %>%
   select(runtime) %>% 
-  mutate(runtime = na_if(runtime < 10, 'NA'))
+  arrange(runtime) %>% 
+  filter(runtime == 0) %>% 
+  mutate(runtime_null = na_if(runtime < 10, 'NA')) %>% 
+  sum()
+
+
 ```
 
 ```{r}
