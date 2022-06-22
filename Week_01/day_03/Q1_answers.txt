@@ -1,4 +1,5 @@
 The things I could do with the movie data include arrange the movies by title or release date.  
 I could also filter the movies by genre, director, release year, etc. 
+I could create new variables to organise the database, such as the decade in which the films came out.
 
  
