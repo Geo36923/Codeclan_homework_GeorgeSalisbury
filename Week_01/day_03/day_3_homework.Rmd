@@ -33,6 +33,9 @@ movies_selected <- movies %>%
   
 movies_selected
 ```
+```{r}
+filter(movies_selected, runtime < 10)
+```
 
 ```{r}
 movies %>% 
@@ -61,6 +64,6 @@ movies %>%
 ```
 
 ```{r}
-movies
+summary(movies, runtime < 10)
 ```
 
