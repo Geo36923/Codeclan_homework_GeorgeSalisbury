@@ -84,3 +84,13 @@ movies %>%
 mutate(movies_runtime = na_if(runtime == 0))
 ```
 
+```{r}
+movies %>% 
+  slice_max(runtime, n = 5, with_ties = FALSE)
+```
+
+```{r}
+movies_selected %>% 
+  replace_with_na(replace(runtime == 0))
+```
+
