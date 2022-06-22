@@ -22,6 +22,10 @@ nrow(movies)
 
 ncol(movies)
 ```
+```{r}
+movies %>% 
+  filter(runtime < 10)
+```
 
 ```{r}
 movies_selected <- movies %>% 
@@ -52,8 +56,8 @@ movies_inputed <- movies %>%
 ```
 
 ```{r}
-movies_inputed %>%
-  mutate(runtime = coalesce())
+movies %>%
+  mutate(runtime = coalesce(runtime))
 ```
 
 ```{r}
