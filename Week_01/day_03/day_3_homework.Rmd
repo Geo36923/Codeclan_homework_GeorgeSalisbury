@@ -29,7 +29,7 @@ movies %>%
 
 ```{r}
 movies_selected <- movies %>% 
-  select(title, runtime, budget) 
+  select(title, runtime, budget) %>% 
   
 movies_selected
 ```
@@ -42,7 +42,7 @@ movies %>%
 ```{r}
 movies %>%
   select(runtime) %>% 
-  mutate(runtime = na_if(runtime, 'NA'))
+  mutate(runtime = na_if(runtime < 10, 'NA'))
 ```
 
 ```{r}
