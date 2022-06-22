@@ -29,13 +29,19 @@ movies %>%
 
 ```{r}
 movies_selected <- movies %>% 
-  select(title, runtime, budget) %>% 
-  
+  select(title, runtime, budget)
+
 movies_selected
+
 ```
 ```{r}
-filter(movies_selected, runtime < 10)
+filter(movies_selected, runtime == 0, budget == 0)
+
 ```
+```{r}
+
+```
+
 
 ```{r}
 movies %>% 
@@ -47,6 +53,7 @@ movies %>%
   select(runtime) %>% 
   arrange(runtime) %>% 
   filter(runtime == 0) %>% 
+  #filter(budget == 0) %>% 
   mutate(runtime_null = na_if(runtime < 10, 'NA')) %>% 
   sum()
 
@@ -55,7 +62,7 @@ movies %>%
 
 ```{r}
 movies %>% 
-  na_if(runtime == 0)
+  mutate(runtime = na_if(runtime == 0))
 ```
 
 ```{r}
@@ -73,6 +80,7 @@ summary(movies, runtime < 10)
 ```
 
 ```{r}
-na_if(movies, runtime == 0)
+movies %>% 
+mutate(movies_runtime = na_if(runtime == 0))
 ```
 
