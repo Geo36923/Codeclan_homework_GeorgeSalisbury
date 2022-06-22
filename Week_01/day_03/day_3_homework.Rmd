@@ -24,7 +24,13 @@ ncol(movies)
 ```
 
 ```{r}
-movies %>% 
-  select(title, runtime, budget)
+movies_selected <- movies %>% 
+  select(title, runtime, budget) 
+  
+movies_selected
+```
+
+```{r}
+
 ```
 
