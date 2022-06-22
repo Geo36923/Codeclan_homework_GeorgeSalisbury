@@ -73,7 +73,6 @@ summary(movies, runtime < 10)
 ```
 
 ```{r}
-movies_runtime <- movies %>% 
-  
+na_if(movies, runtime == 0)
 ```
 
