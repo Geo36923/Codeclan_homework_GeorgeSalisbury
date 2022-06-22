@@ -1,0 +1,30 @@
+
+```{r}
+library(tidyverse)
+```
+```{r}
+library(janitor)
+```
+
+```{r}
+movies <- read_csv('6_homework_cleaning_data/data/movies.csv')
+
+movies
+
+```
+
+```{r}
+head(movies)
+
+tail(movies)
+
+nrow(movies)
+
+ncol(movies)
+```
+
+```{r}
+movies %>% 
+  select(title, runtime, budget)
+```
+
