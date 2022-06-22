@@ -48,11 +48,15 @@ movies %>%
 
 ```{r}
 movies_inputed <- movies %>% 
-  mutate(runtime = coalesce(runtime, ))
+  mutate(runtime = coalesce(runtime, 'unavailable'))
 ```
 
 ```{r}
 movies_inputed %>%
   mutate(runtime = coalesce())
+```
+
+```{r}
+movies
 ```
 
