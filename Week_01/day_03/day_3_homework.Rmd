@@ -36,7 +36,23 @@ movies %>%
 ```
 
 ```{r}
+movies %>%
+  select(runtime) %>% 
+  mutate(runtime = na_if(runtime, 'NA'))
+```
+
+```{r}
 movies %>% 
-  
+  summarize(na_count = sum(is.na(runtime)))
+```
+
+```{r}
+movies_inputed <- movies %>% 
+  mutate(runtime = coalesce(runtime, ))
+```
+
+```{r}
+movies_inputed %>%
+  mutate(runtime = coalesce())
 ```
 
