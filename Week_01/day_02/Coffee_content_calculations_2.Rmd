@@ -45,7 +45,7 @@ drop_na(drinks_content, Calories)
 ```
 
 ```{r}
-sum(drinks_content, Calories - 135)
+sum(drinks_content$ Calories - 135)
 ```
 
 ```{r}
@@ -76,6 +76,20 @@ drinks_content
 ```
 
 ```{r}
-calorie_diff <- 
+mutate(drinks_content,
+       Calories = as.numeric(Calories))
+
+```
+```{r}
+Calorie_count <- select(drinks_content, Calories)
+
+calorie_diff <- sum(Calorie_count - 135)
+
+calorie_diff(drinks_content, Beverage_category)
+```
+
+
+```{r}
+summarise(drinks_content, calorie_diff = sum(Calories %in% Beverage_category - 135))
 ```
 
