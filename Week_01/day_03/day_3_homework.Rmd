@@ -54,13 +54,13 @@ movies %>%
 ```
 
 ```{r}
-movies %>% 
-  summarize(na_count = sum(is.na(runtime)))
+movies_selected %>% 
+  
 ```
 
 ```{r}
 movies_inputed <- movies %>% 
-  mutate(runtime = coalesce(runtime, 'unavailable'))
+  mutate(runtime = coalesce(runtime == 0, 'unavailable'))
 ```
 
 ```{r}
