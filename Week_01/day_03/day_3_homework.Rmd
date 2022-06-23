@@ -21,6 +21,12 @@ tail(movies)
 nrow(movies)
 
 ncol(movies)
+
+dim(movies)
+
+sum(is.na(movies))
+
+nrow(movies) - nrow(drop_na(movies))
 ```
 ```{r}
 movies %>% 
@@ -102,5 +108,62 @@ movies_runtime
 
 movies_runtime %>% 
   count(is.na(runtime))
+```
+
+```{r}
+movies_selected %>% 
+  summarise(na_runtime = sum(is.na(runtime)),
+            na_title = sum(is.na(title)),
+            na_budget = sum(is.na(budget)))
+```
+
+```{r}
+movies_runtime <- movies_selected %>%
+  mutate(runtime = na_if(runtime, 0))
+
+movies_runtime %>% 
+  summarise(count = sum(is.na(runtime)))
+```
+
+```{r}
+movies_imputed <- movies_runtime %>%  
+  mutate(runtime = coalesce(runtime, median(runtime, na.rm = TRUE)))
+
+movies_imputed %>% 
+  summarise(count = sum(is.na(runtime)))
+```
+
+```{r}
+movies_imputed %>% 
+  slice_min(runtime, n = 10)
+
+movies_imputed %>% 
+  slice_max(runtime, n = 10)
+```
+
+```{r}
+movies_imputed <- movies_imputed %>% 
+  mutate(budget = if_else(budget < 100, median(budget), budget))
+```
+
+```{r}
+movie_budgets <- movies_imputed %>%
+  mutate(
+    budget_type = case_when(
+      budget < 12e6 ~ "Small budget",
+      budget < 40e6 ~ "Medium budget",
+      budget >= 40e6 ~ "Big budget"
+      )
+    )
+
+movie_budgets
+```
+
+```{r}
+movies %>%
+  summarise(across(where(is.numeric), ~sum(is.na(.x))))
+
+movies %>%
+  summarise(across(where(is.character), ~sum(is.na(.x))))
 ```
 
