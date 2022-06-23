@@ -1,3 +1,6 @@
+```{r}
+library(styler)
+```
 
 ```{r}
 library(tidyverse)
@@ -28,6 +31,7 @@ sum(is.na(movies))
 
 nrow(movies) - nrow(drop_na(movies))
 ```
+
 ```{r}
 movies %>% 
   filter(runtime < 10)
@@ -40,6 +44,7 @@ movies_selected <- movies %>%
 movies_selected
 
 ```
+
 ```{r}
 filter(movies_selected, runtime == 0, budget == 0)
 
@@ -55,14 +60,13 @@ movies %>%
 ```
 
 ```{r}
+styler::style
 movies %>%
   select(runtime) %>% 
   arrange(runtime) %>% 
   filter(runtime == 0) %>% 
   #filter(budget == 0) %>% 
   mutate(runtime_null = na_if(runtime, 0)) 
-  
-
 
 ```
 
