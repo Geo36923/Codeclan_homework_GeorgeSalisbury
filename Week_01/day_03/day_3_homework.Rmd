@@ -60,8 +60,8 @@ movies %>%
   arrange(runtime) %>% 
   filter(runtime == 0) %>% 
   #filter(budget == 0) %>% 
-  mutate(runtime_null = na_if(runtime < 10, 'NA')) %>% 
-  sum()
+  mutate(runtime_null = na_if(runtime, 0)) 
+  
 
 
 ```
@@ -116,7 +116,7 @@ movies_selected %>%
             na_title = sum(is.na(title)),
             na_budget = sum(is.na(budget)))
 ```
-
+Question_4
 ```{r}
 movies_runtime <- movies_selected %>%
   mutate(runtime = na_if(runtime, 0))
@@ -124,7 +124,7 @@ movies_runtime <- movies_selected %>%
 movies_runtime %>% 
   summarise(count = sum(is.na(runtime)))
 ```
-
+Question_5
 ```{r}
 movies_imputed <- movies_runtime %>%  
   mutate(runtime = coalesce(runtime, median(runtime, na.rm = TRUE)))
@@ -132,7 +132,7 @@ movies_imputed <- movies_runtime %>%
 movies_imputed %>% 
   summarise(count = sum(is.na(runtime)))
 ```
-
+Question_6
 ```{r}
 movies_imputed %>% 
   slice_min(runtime, n = 10)
@@ -140,12 +140,12 @@ movies_imputed %>%
 movies_imputed %>% 
   slice_max(runtime, n = 10)
 ```
-
+Question_7
 ```{r}
 movies_imputed <- movies_imputed %>% 
   mutate(budget = if_else(budget < 100, median(budget), budget))
 ```
-
+Extension_Q1
 ```{r}
 movie_budgets <- movies_imputed %>%
   mutate(
@@ -158,6 +158,28 @@ movie_budgets <- movies_imputed %>%
 
 movie_budgets
 ```
+Extension_Q2
+```{r}
+movies %>%
+  summarise(across(where(is.numeric), ~sum(is.na(.x))))
+
+movies %>%
+  summarise(across(where(is.character), ~sum(is.na(.x))))
+```
+
+```{r}
+movies_runtime <- movies_selected %>% 
+  mutate(runtime = na_if(runtime, 0))
+
+runtime_median <- median(movies_runtime$runtime, na.rm = TRUE)
+
+movies_imputed <- movies_runtime %>% 
+      mutate(runtime = coalesce(runtime, runtime_median)) %>% 
+      arrange(runtime)
+
+movies_imputed %>% 
+  count(is.na(runtime))
+```
 
 ```{r}
 movies %>%
@@ -165,5 +187,74 @@ movies %>%
 
 movies %>%
   summarise(across(where(is.character), ~sum(is.na(.x))))
+```
+
+```{r}
+movies_imputed %>% 
+  view()
+```
+
+```{r}
+movies_selected %>% 
+  mutate(runtime = na_if(runtime, 0), 
+         runtime = coalesce(runtime, median(runtime, na.rm = TRUE))) %>% 
+  summarise(sum(is.na(runtime)))
+```
+
+```{r}
+movies_imputed %>% 
+  mutate(budget = ifelse(budget < 100, median(budget), NA))
+
+```
+
+```{r}
+movie_budgets <- movies_imputed %>% 
+  mutate(budget_type = case_when(
+                                budget <= 12e6 ~ "Small Budget",
+                                budget < 40e6 & budget > 12e6 ~ "Medium Budget",
+                                budget >= 40e6 ~ NA_character_
+                                )
+        )
+```
+
+```{r}
+movies %>% 
+  summarise(across(where(is.numeric),
+                   ~sum(is.na(.x)),
+                   .names = "missing_values_in_{col}")) #%>%
+  #summarise(across(everything(), sum, .names = "missing_values_in_{col}"))
+
+
+movies %>% 
+  summarise(across(
+                  where(is.numeric),
+                   is.na
+                  )
+            ) %>%
+  summarise(across(everything(), sum, .names = "missing_values_in_{col}"))
+```
+
+```{r}
+movies %>% 
+  summarise(across(where(is.numeric),
+                   ~sum(is.na(.x)),
+                   .names = "missing_values_in_{col}"))
+
+movies %>% 
+  summarise(across(
+    where(is.numeric),
+    is.na)
+    )
+  ) %>%
+  summarise(across(everything(), sum, .names = 
+"missing_values_in_{col}"))
+```
+
+```{r}
+summary(movies)
+```
+
+```{r}
+class(summary(movies))
 ```
 
