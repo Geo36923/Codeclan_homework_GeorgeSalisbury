@@ -94,3 +94,13 @@ movies_selected %>%
   replace_with_na(replace(runtime == 0))
 ```
 
+```{r}
+movies_runtime <- movies_selected %>% 
+  mutate(runtime = na_if(runtime, 0))
+
+movies_runtime
+
+movies_runtime %>% 
+  count(is.na(runtime))
+```
+
