@@ -106,13 +106,13 @@ highest_rating_publisher
 ```
 
 ```{r}
-# Longest_language_code <- Good_reads %>% 
-#   select(language_code, num_pages, title, bookID) %>% 
-#   filter(language_code) %>% 
-#   count(num_pages, language_code == "eng")
-# 
-# 
-# Longest_language_code
+Highest_page_count <- Good_reads %>% 
+  select(language_code, num_pages) %>% 
+  summarise(num_pages, language_code) %>% 
+  arrange(desc(Highest_page_count))
+
+
+Highest_page_count
 ```
 
 ```{r}
@@ -121,9 +121,10 @@ highest_rating_publisher
 #   group_by() %>% 
 #   distinct(language_code)
 
-Longest_language_code <- Good_reads %>% 
-  select(language_code, num_pages) %>% 
-  summarise(max(num_pages)) %>% 
-  
+Highest_language_code <- Good_reads %>% 
+  select(language_code, average_rating) %>% 
+  summarise(max(average_rating)) 
+
+Highest_language_code  
 ```
 
