@@ -126,6 +126,7 @@ Highest_language_code
 ```{r}
 Longest_language_Code <- Good_reads %>% 
   select(language_code, num_pages) %>% 
-  
+  group_by(language_code) %>% 
+  summarise(longest_books = max(num_pages))
 ```
 
