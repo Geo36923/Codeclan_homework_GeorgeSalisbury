@@ -1802,9 +1802,9 @@ Good_reads</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm9va19zdWJzZXQgPC0gR29vZF9yZWFkcyAlPiUgXG4gIHNlbGVjdChhdXRob3JzLCB0aXRsZSwgcmF0aW5nc19jb3VudCwgdGV4dF9yZXZpZXdzX2NvdW50LCBsYW5ndWFnZV9jb2RlLCBwdWJsaXNoZXIpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm9va19zdWJzZXQgPC0gR29vZF9yZWFkcyAlPiUgXG4gIHNlbGVjdChhdXRob3JzLCB0aXRsZSwgcmF0aW5nc19jb3VudCwgdGV4dF9yZXZpZXdzX2NvdW50LCBsYW5ndWFnZV9jb2RlLCBwdWJsaXNoZXIsIGJvb2tJRClcbmBgYCJ9 -->
 <pre class="r"><code>book_subset &lt;- Good_reads %&gt;% 
-  select(authors, title, ratings_count, text_reviews_count, language_code, publisher)</code></pre>
+  select(authors, title, ratings_count, text_reviews_count, language_code, publisher, bookID)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1834,15 +1834,41 @@ Good_reads</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9zdF9yYXRpbmdzIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9zdF9yZXZpZXdzIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBzZWxlY3QodGl0bGUsIHRleHRfcmV2aWV3c19jb3VudCwgYm9va0lEKSAlPiUgXG4gIGFycmFuZ2UoZGVzYyh0ZXh0X3Jldmlld3NfY291bnQpKSAlPiUgXG4gIGhlYWQoMSlcblxubW9zdF9yZXZpZXdzXG5gYGAifQ== -->
+<pre class="r"><code>most_reviews &lt;- Good_reads %&gt;% 
+  select(title, text_reviews_count, bookID) %&gt;% 
+  arrange(desc(text_reviews_count)) %&gt;% 
+  head(1)
+
+most_reviews</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9zdF9yYXRpbmdzIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBzZWxlY3QodGl0bGUsIHJhdGluZ3NfY291bnQsIGJvb2tJRCkgJT4lIFxuICBhcnJhbmdlKGRlc2MocmF0aW5nc19jb3VudCkpICU+JSBcbiAgaGVhZCgxKVxuXG5tb3N0X3JhdGluZ3NcbmBgYCJ9 -->
 <pre class="r"><code>most_ratings &lt;- Good_reads %&gt;% 
+  select(title, ratings_count, bookID) %&gt;% 
+  arrange(desc(ratings_count)) %&gt;% 
+  head(1)
+
+most_ratings</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGlnaGVzdF9yYXRpbmdfcHVibGlzaGVyIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBzZWxlY3QocHVibGlzaGVyLCBhdmVyYWdlX3JhdGluZykgJT4lIFxuICBncm91cF9ieShwdWJsaXNoZXIpICU+JSBcbiAgXG5gYGAifQ== -->
+<pre class="r"><code>highest_rating_publisher &lt;- Good_reads %&gt;% 
+  select(publisher, average_rating) %&gt;% 
+  group_by(publisher) %&gt;% 
   </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoQ29kZUNsYW5EYXRhKQ0KYGBgDQoNCmBgYHtyfQ0KR29vZF9yZWFkcyA8LSByZWFkX2NzdignZGF0YS9ib29rcy5jc3YnKQ0KDQpHb29kX3JlYWRzDQpgYGANCg0KYGBge3J9DQpoZWFkKEdvb2RfcmVhZHMpDQoNCnRhaWwoR29vZF9yZWFkcykNCg0KZGltKEdvb2RfcmVhZHMpDQoNCmdsaW1wc2UoR29vZF9yZWFkcykNCg0KbmFtZXMoR29vZF9yZWFkcykNCg0KaGVhZChHb29kX3JlYWRzKQ0KDQpzdW0oaXMubmEoR29vZF9yZWFkcykpDQpgYGANCg0KYGBge3J9DQpib29rX3N1YnNldCA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KGF1dGhvcnMsIHRpdGxlLCByYXRpbmdzX2NvdW50LCB0ZXh0X3Jldmlld3NfY291bnQsIGxhbmd1YWdlX2NvZGUsIHB1Ymxpc2hlcikNCmBgYA0KDQpgYGB7cn0NCkdvb2RfcmVhZHMgJT4lIA0KICBzZWxlY3QoYXV0aG9ycywgdGl0bGUsIHJhdGluZ3NfY291bnQsIHRleHRfcmV2aWV3c19jb3VudCwgbGFuZ3VhZ2VfY29kZSwgcHVibGlzaGVyKSAlPiUgDQogIGZpbHRlcihpcy5uYShhdXRob3JzKSkgJT4lIA0KICBzdW1tYXJpc2UoY291bnRfb2ZfbWlzc2luZ19hdXRob3JzID0gbigpKQ0KYGBgDQoNCmBgYHtyfQ0KSGlnaGVzdF9hdmVyYWdlX3JhdGluZyA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KHRpdGxlLCBhdmVyYWdlX3JhdGluZykgJT4lDQogIGdyb3VwX2J5KGF2ZXJhZ2VfcmF0aW5nKSAlPiUgDQogIHN1bW1hcmlzZShtZWFuX3JhdGluZyA9IG1lYW4oYXZlcmFnZV9yYXRpbmcpKSAlPiUgDQogIGFycmFuZ2UoZGVzYyhtZWFuX3JhdGluZykpICU+JSANCiAgaGVhZCg1KSAlPiUgDQogIHB1bGwoKQ0KDQpIaWdoZXN0X2F2ZXJhZ2VfcmF0aW5nDQpgYGANCg0KYGBge3J9DQptb3N0X3JhdGluZ3MgPC0gR29vZF9yZWFkcyAlPiUgDQogIA0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoQ29kZUNsYW5EYXRhKQ0KYGBgDQoNCmBgYHtyfQ0KR29vZF9yZWFkcyA8LSByZWFkX2NzdignZGF0YS9ib29rcy5jc3YnKQ0KDQpHb29kX3JlYWRzDQpgYGANCg0KYGBge3J9DQpoZWFkKEdvb2RfcmVhZHMpDQoNCnRhaWwoR29vZF9yZWFkcykNCg0KZGltKEdvb2RfcmVhZHMpDQoNCmdsaW1wc2UoR29vZF9yZWFkcykNCg0KbmFtZXMoR29vZF9yZWFkcykNCg0KaGVhZChHb29kX3JlYWRzKQ0KDQpzdW0oaXMubmEoR29vZF9yZWFkcykpDQpgYGANCg0KYGBge3J9DQpib29rX3N1YnNldCA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KGF1dGhvcnMsIHRpdGxlLCByYXRpbmdzX2NvdW50LCB0ZXh0X3Jldmlld3NfY291bnQsIGxhbmd1YWdlX2NvZGUsIHB1Ymxpc2hlciwgYm9va0lEKQ0KYGBgDQoNCmBgYHtyfQ0KR29vZF9yZWFkcyAlPiUgDQogIHNlbGVjdChhdXRob3JzLCB0aXRsZSwgcmF0aW5nc19jb3VudCwgdGV4dF9yZXZpZXdzX2NvdW50LCBsYW5ndWFnZV9jb2RlLCBwdWJsaXNoZXIpICU+JSANCiAgZmlsdGVyKGlzLm5hKGF1dGhvcnMpKSAlPiUgDQogIHN1bW1hcmlzZShjb3VudF9vZl9taXNzaW5nX2F1dGhvcnMgPSBuKCkpDQpgYGANCg0KYGBge3J9DQpIaWdoZXN0X2F2ZXJhZ2VfcmF0aW5nIDwtIEdvb2RfcmVhZHMgJT4lIA0KICBzZWxlY3QodGl0bGUsIGF2ZXJhZ2VfcmF0aW5nKSAlPiUNCiAgZ3JvdXBfYnkoYXZlcmFnZV9yYXRpbmcpICU+JSANCiAgc3VtbWFyaXNlKG1lYW5fcmF0aW5nID0gbWVhbihhdmVyYWdlX3JhdGluZykpICU+JSANCiAgYXJyYW5nZShkZXNjKG1lYW5fcmF0aW5nKSkgJT4lIA0KICBoZWFkKDUpICU+JSANCiAgcHVsbCgpDQoNCkhpZ2hlc3RfYXZlcmFnZV9yYXRpbmcNCmBgYA0KDQpgYGB7cn0NCm1vc3RfcmV2aWV3cyA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KHRpdGxlLCB0ZXh0X3Jldmlld3NfY291bnQsIGJvb2tJRCkgJT4lIA0KICBhcnJhbmdlKGRlc2ModGV4dF9yZXZpZXdzX2NvdW50KSkgJT4lIA0KICBoZWFkKDEpDQoNCm1vc3RfcmV2aWV3cw0KYGBgDQoNCmBgYHtyfQ0KbW9zdF9yYXRpbmdzIDwtIEdvb2RfcmVhZHMgJT4lIA0KICBzZWxlY3QodGl0bGUsIHJhdGluZ3NfY291bnQsIGJvb2tJRCkgJT4lIA0KICBhcnJhbmdlKGRlc2MocmF0aW5nc19jb3VudCkpICU+JSANCiAgaGVhZCgxKQ0KDQptb3N0X3JhdGluZ3MNCmBgYA0KDQpgYGB7cn0NCmhpZ2hlc3RfcmF0aW5nX3B1Ymxpc2hlciA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KHB1Ymxpc2hlciwgYXZlcmFnZV9yYXRpbmcpICU+JSANCiAgZ3JvdXBfYnkocHVibGlzaGVyKSAlPiUgDQogIA0KYGBgDQoNCg==</div>
 
 
 
