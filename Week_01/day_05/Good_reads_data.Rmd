@@ -1,0 +1,50 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+library(CodeClanData)
+```
+
+```{r}
+Good_reads <- read_csv('data/books.csv')
+
+Good_reads
+```
+
+```{r}
+head(Good_reads)
+
+tail(Good_reads)
+
+dim(Good_reads)
+
+glimpse(Good_reads)
+
+names(Good_reads)
+
+head(Good_reads)
+
+sum(is.na(Good_reads))
+```
+
+```{r}
+book_subset <- Good_reads %>% 
+  select(authors, title, ratings_count, text_reviews_count, language_code, publisher)
+```
+
+```{r}
+Good_reads %>% 
+  select(authors, title, ratings_count, text_reviews_count, language_code, publisher) %>% 
+  filter(is.na(authors)) %>% 
+  summarise(count_of_missing_authors = n())
+```
+
+```{r}
+Highest_average_rating <- Good_reads %>% 
+  select(title, average_rating) %>%
+  group_by(average_rating) %>% 
+  head(5)
+```
+
