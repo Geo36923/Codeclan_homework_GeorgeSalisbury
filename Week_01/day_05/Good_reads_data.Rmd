@@ -85,14 +85,21 @@ highest_rating_publisher
 ```
 
 ```{r}
-highest_rating_publisher <- Good_reads %>% 
-  select(publisher, average_rating) %>% 
-  group_by(publisher) %>% 
-  summarise(mean_ratings = mean(average_rating)) %>% 
-  arrange(desc(mean_ratings)) %>% 
-  head(1)
+#highest_rating_median_publisher <- Good_reads %>% 
+  #select(publisher, average_rating) %>% 
+  #group_by(publisher) %>% 
+  #summarise(median_ratings = median(average_rating)) %>% 
+  #arrange(desc(median_ratings)) %>% 
+  #head(1)
 
 
-highest_rating_publisher
+#highest_rating_median_publisher
+```
+
+```{r}
+Longest_language_code <- Good_reads %>% 
+  select(language_code, num_pages, title, bookID) %>% 
+  group_by(language_code, num_pages) %>% 
+  summarise(num_pages %in% language_code)
 ```
 
