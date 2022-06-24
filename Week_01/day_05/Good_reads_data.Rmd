@@ -180,7 +180,10 @@ Author_avg_rating
 
 ```{r}
 
-books_imputed <- Good_reads %>% 
-  slice_min()
+longest_books <- Good_reads %>% 
+  slice_min(num_pages, n = 15)
+
+shortest_books <- Good_reads %>% 
+  slice_max(runtime, n = 10)
 ```
 
