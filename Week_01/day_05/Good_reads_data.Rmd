@@ -40,7 +40,7 @@ Good_reads %>%
   filter(is.na(authors)) %>% 
   summarise(count_of_missing_authors = n())
 ```
-
+Q1
 ```{r}
 Highest_average_rating <- Good_reads %>% 
   select(title, average_rating, bookID) %>%
@@ -52,7 +52,7 @@ Highest_average_rating <- Good_reads %>%
 
 Highest_average_rating
 ```
-
+Q2
 ```{r}
 most_reviews <- Good_reads %>% 
   select(title, text_reviews_count, bookID) %>% 
@@ -62,7 +62,7 @@ most_reviews <- Good_reads %>%
 
 most_reviews
 ```
-
+Q3
 ```{r}
 most_ratings <- Good_reads %>% 
   select(title, ratings_count, bookID) %>% 
@@ -80,7 +80,7 @@ least_ratings <- Good_reads %>%
 
 least_ratings
 ```
-
+Q4
 ```{r}
 highest_rating_publisher <- Good_reads %>% 
   select(publisher, average_rating) %>% 
@@ -122,11 +122,13 @@ Highest_language_code <- Good_reads %>%
 
 Highest_language_code  
 ```
-
+Q5
 ```{r}
 Longest_language_Code <- Good_reads %>% 
   select(language_code, num_pages) %>% 
   group_by(language_code) %>% 
-  summarise(longest_books = max(num_pages))
+  summarise(longest_books = max(num_pages)) 
+  #pull()
+
 ```
 
