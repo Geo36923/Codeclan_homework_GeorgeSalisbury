@@ -1820,25 +1820,30 @@ Good_reads</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuSGlnaGVzdF9hdmVyYWdlX3JhdGluZyA8LSBHb29kX3JlYWRzICU+JSBcbiAgc2VsZWN0KHRpdGxlLCBhdmVyYWdlX3JhdGluZykgJT4lXG4gIGdyb3VwX2J5KGF2ZXJhZ2VfcmF0aW5nKSAlPiUgXG4gIHN1bW1hcmlzZShtZWFuX3JhdGluZyA9IG1lYW4oYXZlcmFnZV9yYXRpbmcpKSAlPiUgXG4gIGFycmFuZ2UoZGVzYyhtZWFuX3JhdGluZykpICU+JSBcbiAgaGVhZCg1KSAlPiUgXG4gIHB1bGwoKVxuXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuSGlnaGVzdF9hdmVyYWdlX3JhdGluZyA8LSBHb29kX3JlYWRzICU+JSBcbiAgc2VsZWN0KHRpdGxlLCBhdmVyYWdlX3JhdGluZywgYm9va0lEKSAlPiVcbiAgZ3JvdXBfYnkoYXZlcmFnZV9yYXRpbmcpICU+JSBcbiAgc3VtbWFyaXNlKG1lYW5fcmF0aW5nID0gbWVhbihhdmVyYWdlX3JhdGluZykpICU+JSBcbiAgYXJyYW5nZShkZXNjKG1lYW5fcmF0aW5nKSkgJT4lIFxuICBoZWFkKDUpICU+JSBcbiAgcHVsbCgpXG5cbkhpZ2hlc3RfYXZlcmFnZV9yYXRpbmdcbmBgYCJ9 -->
 <pre class="r"><code>Highest_average_rating &lt;- Good_reads %&gt;% 
-  select(title, average_rating) %&gt;%
+  select(title, average_rating, bookID) %&gt;%
   group_by(average_rating) %&gt;% 
   summarise(mean_rating = mean(average_rating)) %&gt;% 
   arrange(desc(mean_rating)) %&gt;% 
   head(5) %&gt;% 
   pull()
-</code></pre>
+
+Highest_average_rating</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDUuMDAgNC45MSA0Ljg4IDQuODYgNC44M1xuIn0= -->
+<pre><code>[1] 5.00 4.91 4.88 4.86 4.83</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9zdF9yZXZpZXdzIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBzZWxlY3QodGl0bGUsIHRleHRfcmV2aWV3c19jb3VudCwgYm9va0lEKSAlPiUgXG4gIGFycmFuZ2UoZGVzYyh0ZXh0X3Jldmlld3NfY291bnQpKSAlPiUgXG4gIGhlYWQoMSlcblxubW9zdF9yZXZpZXdzXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9zdF9yZXZpZXdzIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBzZWxlY3QodGl0bGUsIHRleHRfcmV2aWV3c19jb3VudCwgYm9va0lEKSAlPiUgXG4gIGFycmFuZ2UoZGVzYyh0ZXh0X3Jldmlld3NfY291bnQpKSAlPiUgXG4gIGhlYWQoMSkgXG4gIFxuXG5tb3N0X3Jldmlld3NcbmBgYCJ9 -->
 <pre class="r"><code>most_reviews &lt;- Good_reads %&gt;% 
   select(title, text_reviews_count, bookID) %&gt;% 
   arrange(desc(text_reviews_count)) %&gt;% 
-  head(1)
+  head(1) 
+  
 
 most_reviews</code></pre>
 <!-- rnb-source-end -->
@@ -1858,17 +1863,37 @@ most_ratings</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGlnaGVzdF9yYXRpbmdfcHVibGlzaGVyIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBzZWxlY3QocHVibGlzaGVyLCBhdmVyYWdlX3JhdGluZykgJT4lIFxuICBncm91cF9ieShwdWJsaXNoZXIpICU+JSBcbiAgXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGlnaGVzdF9yYXRpbmdfcHVibGlzaGVyIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBzZWxlY3QocHVibGlzaGVyLCBhdmVyYWdlX3JhdGluZykgJT4lIFxuICBncm91cF9ieShwdWJsaXNoZXIpICU+JSBcbiAgc3VtbWFyaXNlKG1lYW5fcmF0aW5ncyA9IG1lYW4oYXZlcmFnZV9yYXRpbmcpKSAlPiUgXG4gIGFycmFuZ2UoZGVzYyhtZWFuX3JhdGluZ3MpKSAlPiUgXG4gIGhlYWQoMSlcblxuXG5oaWdoZXN0X3JhdGluZ19wdWJsaXNoZXJcbmBgYCJ9 -->
 <pre class="r"><code>highest_rating_publisher &lt;- Good_reads %&gt;% 
   select(publisher, average_rating) %&gt;% 
   group_by(publisher) %&gt;% 
-  </code></pre>
+  summarise(mean_ratings = mean(average_rating)) %&gt;% 
+  arrange(desc(mean_ratings)) %&gt;% 
+  head(1)
+
+
+highest_rating_publisher</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGlnaGVzdF9yYXRpbmdfcHVibGlzaGVyIDwtIEdvb2RfcmVhZHMgJT4lIFxuICBzZWxlY3QocHVibGlzaGVyLCBhdmVyYWdlX3JhdGluZykgJT4lIFxuICBncm91cF9ieShwdWJsaXNoZXIpICU+JSBcbiAgc3VtbWFyaXNlKG1lYW5fcmF0aW5ncyA9IG1lYW4oYXZlcmFnZV9yYXRpbmcpKSAlPiUgXG4gIGFycmFuZ2UoZGVzYyhtZWFuX3JhdGluZ3MpKSAlPiUgXG4gIGhlYWQoMSlcblxuXG5oaWdoZXN0X3JhdGluZ19wdWJsaXNoZXJcbmBgYCJ9 -->
+<pre class="r"><code>highest_rating_publisher &lt;- Good_reads %&gt;% 
+  select(publisher, average_rating) %&gt;% 
+  group_by(publisher) %&gt;% 
+  summarise(mean_ratings = mean(average_rating)) %&gt;% 
+  arrange(desc(mean_ratings)) %&gt;% 
+  head(1)
+
+
+highest_rating_publisher</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoQ29kZUNsYW5EYXRhKQ0KYGBgDQoNCmBgYHtyfQ0KR29vZF9yZWFkcyA8LSByZWFkX2NzdignZGF0YS9ib29rcy5jc3YnKQ0KDQpHb29kX3JlYWRzDQpgYGANCg0KYGBge3J9DQpoZWFkKEdvb2RfcmVhZHMpDQoNCnRhaWwoR29vZF9yZWFkcykNCg0KZGltKEdvb2RfcmVhZHMpDQoNCmdsaW1wc2UoR29vZF9yZWFkcykNCg0KbmFtZXMoR29vZF9yZWFkcykNCg0KaGVhZChHb29kX3JlYWRzKQ0KDQpzdW0oaXMubmEoR29vZF9yZWFkcykpDQpgYGANCg0KYGBge3J9DQpib29rX3N1YnNldCA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KGF1dGhvcnMsIHRpdGxlLCByYXRpbmdzX2NvdW50LCB0ZXh0X3Jldmlld3NfY291bnQsIGxhbmd1YWdlX2NvZGUsIHB1Ymxpc2hlciwgYm9va0lEKQ0KYGBgDQoNCmBgYHtyfQ0KR29vZF9yZWFkcyAlPiUgDQogIHNlbGVjdChhdXRob3JzLCB0aXRsZSwgcmF0aW5nc19jb3VudCwgdGV4dF9yZXZpZXdzX2NvdW50LCBsYW5ndWFnZV9jb2RlLCBwdWJsaXNoZXIpICU+JSANCiAgZmlsdGVyKGlzLm5hKGF1dGhvcnMpKSAlPiUgDQogIHN1bW1hcmlzZShjb3VudF9vZl9taXNzaW5nX2F1dGhvcnMgPSBuKCkpDQpgYGANCg0KYGBge3J9DQpIaWdoZXN0X2F2ZXJhZ2VfcmF0aW5nIDwtIEdvb2RfcmVhZHMgJT4lIA0KICBzZWxlY3QodGl0bGUsIGF2ZXJhZ2VfcmF0aW5nKSAlPiUNCiAgZ3JvdXBfYnkoYXZlcmFnZV9yYXRpbmcpICU+JSANCiAgc3VtbWFyaXNlKG1lYW5fcmF0aW5nID0gbWVhbihhdmVyYWdlX3JhdGluZykpICU+JSANCiAgYXJyYW5nZShkZXNjKG1lYW5fcmF0aW5nKSkgJT4lIA0KICBoZWFkKDUpICU+JSANCiAgcHVsbCgpDQoNCkhpZ2hlc3RfYXZlcmFnZV9yYXRpbmcNCmBgYA0KDQpgYGB7cn0NCm1vc3RfcmV2aWV3cyA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KHRpdGxlLCB0ZXh0X3Jldmlld3NfY291bnQsIGJvb2tJRCkgJT4lIA0KICBhcnJhbmdlKGRlc2ModGV4dF9yZXZpZXdzX2NvdW50KSkgJT4lIA0KICBoZWFkKDEpDQoNCm1vc3RfcmV2aWV3cw0KYGBgDQoNCmBgYHtyfQ0KbW9zdF9yYXRpbmdzIDwtIEdvb2RfcmVhZHMgJT4lIA0KICBzZWxlY3QodGl0bGUsIHJhdGluZ3NfY291bnQsIGJvb2tJRCkgJT4lIA0KICBhcnJhbmdlKGRlc2MocmF0aW5nc19jb3VudCkpICU+JSANCiAgaGVhZCgxKQ0KDQptb3N0X3JhdGluZ3MNCmBgYA0KDQpgYGB7cn0NCmhpZ2hlc3RfcmF0aW5nX3B1Ymxpc2hlciA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KHB1Ymxpc2hlciwgYXZlcmFnZV9yYXRpbmcpICU+JSANCiAgZ3JvdXBfYnkocHVibGlzaGVyKSAlPiUgDQogIA0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoQ29kZUNsYW5EYXRhKQ0KYGBgDQoNCmBgYHtyfQ0KR29vZF9yZWFkcyA8LSByZWFkX2NzdignZGF0YS9ib29rcy5jc3YnKQ0KDQpHb29kX3JlYWRzDQpgYGANCg0KYGBge3J9DQpoZWFkKEdvb2RfcmVhZHMpDQoNCnRhaWwoR29vZF9yZWFkcykNCg0KZGltKEdvb2RfcmVhZHMpDQoNCmdsaW1wc2UoR29vZF9yZWFkcykNCg0KbmFtZXMoR29vZF9yZWFkcykNCg0KaGVhZChHb29kX3JlYWRzKQ0KDQpzdW0oaXMubmEoR29vZF9yZWFkcykpDQpgYGANCg0KYGBge3J9DQpib29rX3N1YnNldCA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KGF1dGhvcnMsIHRpdGxlLCByYXRpbmdzX2NvdW50LCB0ZXh0X3Jldmlld3NfY291bnQsIGxhbmd1YWdlX2NvZGUsIHB1Ymxpc2hlciwgYm9va0lEKQ0KYGBgDQoNCmBgYHtyfQ0KR29vZF9yZWFkcyAlPiUgDQogIHNlbGVjdChhdXRob3JzLCB0aXRsZSwgcmF0aW5nc19jb3VudCwgdGV4dF9yZXZpZXdzX2NvdW50LCBsYW5ndWFnZV9jb2RlLCBwdWJsaXNoZXIpICU+JSANCiAgZmlsdGVyKGlzLm5hKGF1dGhvcnMpKSAlPiUgDQogIHN1bW1hcmlzZShjb3VudF9vZl9taXNzaW5nX2F1dGhvcnMgPSBuKCkpDQpgYGANCg0KYGBge3J9DQpIaWdoZXN0X2F2ZXJhZ2VfcmF0aW5nIDwtIEdvb2RfcmVhZHMgJT4lIA0KICBzZWxlY3QodGl0bGUsIGF2ZXJhZ2VfcmF0aW5nLCBib29rSUQpICU+JQ0KICBncm91cF9ieShhdmVyYWdlX3JhdGluZykgJT4lIA0KICBzdW1tYXJpc2UobWVhbl9yYXRpbmcgPSBtZWFuKGF2ZXJhZ2VfcmF0aW5nKSkgJT4lIA0KICBhcnJhbmdlKGRlc2MobWVhbl9yYXRpbmcpKSAlPiUgDQogIGhlYWQoNSkgJT4lIA0KICBwdWxsKCkNCg0KSGlnaGVzdF9hdmVyYWdlX3JhdGluZw0KYGBgDQoNCmBgYHtyfQ0KbW9zdF9yZXZpZXdzIDwtIEdvb2RfcmVhZHMgJT4lIA0KICBzZWxlY3QodGl0bGUsIHRleHRfcmV2aWV3c19jb3VudCwgYm9va0lEKSAlPiUgDQogIGFycmFuZ2UoZGVzYyh0ZXh0X3Jldmlld3NfY291bnQpKSAlPiUgDQogIGhlYWQoMSkgDQogIA0KDQptb3N0X3Jldmlld3MNCmBgYA0KDQpgYGB7cn0NCm1vc3RfcmF0aW5ncyA8LSBHb29kX3JlYWRzICU+JSANCiAgc2VsZWN0KHRpdGxlLCByYXRpbmdzX2NvdW50LCBib29rSUQpICU+JSANCiAgYXJyYW5nZShkZXNjKHJhdGluZ3NfY291bnQpKSAlPiUgDQogIGhlYWQoMSkNCg0KbW9zdF9yYXRpbmdzDQpgYGANCg0KYGBge3J9DQpoaWdoZXN0X3JhdGluZ19wdWJsaXNoZXIgPC0gR29vZF9yZWFkcyAlPiUgDQogIHNlbGVjdChwdWJsaXNoZXIsIGF2ZXJhZ2VfcmF0aW5nKSAlPiUgDQogIGdyb3VwX2J5KHB1Ymxpc2hlcikgJT4lIA0KICBzdW1tYXJpc2UobWVhbl9yYXRpbmdzID0gbWVhbihhdmVyYWdlX3JhdGluZykpICU+JSANCiAgYXJyYW5nZShkZXNjKG1lYW5fcmF0aW5ncykpICU+JSANCiAgaGVhZCgxKQ0KDQoNCmhpZ2hlc3RfcmF0aW5nX3B1Ymxpc2hlcg0KYGBgDQoNCmBgYHtyfQ0KaGlnaGVzdF9yYXRpbmdfcHVibGlzaGVyIDwtIEdvb2RfcmVhZHMgJT4lIA0KICBzZWxlY3QocHVibGlzaGVyLCBhdmVyYWdlX3JhdGluZykgJT4lIA0KICBncm91cF9ieShwdWJsaXNoZXIpICU+JSANCiAgc3VtbWFyaXNlKG1lYW5fcmF0aW5ncyA9IG1lYW4oYXZlcmFnZV9yYXRpbmcpKSAlPiUgDQogIGFycmFuZ2UoZGVzYyhtZWFuX3JhdGluZ3MpKSAlPiUgDQogIGhlYWQoMSkNCg0KDQpoaWdoZXN0X3JhdGluZ19wdWJsaXNoZXINCmBgYA0KDQo=</div>
 
 
 

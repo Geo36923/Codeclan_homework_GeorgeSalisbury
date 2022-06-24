@@ -43,7 +43,7 @@ Good_reads %>%
 
 ```{r}
 Highest_average_rating <- Good_reads %>% 
-  select(title, average_rating) %>%
+  select(title, average_rating, bookID) %>%
   group_by(average_rating) %>% 
   summarise(mean_rating = mean(average_rating)) %>% 
   arrange(desc(mean_rating)) %>% 
@@ -57,7 +57,8 @@ Highest_average_rating
 most_reviews <- Good_reads %>% 
   select(title, text_reviews_count, bookID) %>% 
   arrange(desc(text_reviews_count)) %>% 
-  head(1)
+  head(1) 
+  
 
 most_reviews
 ```
@@ -75,6 +76,23 @@ most_ratings
 highest_rating_publisher <- Good_reads %>% 
   select(publisher, average_rating) %>% 
   group_by(publisher) %>% 
-  
+  summarise(mean_ratings = mean(average_rating)) %>% 
+  arrange(desc(mean_ratings)) %>% 
+  head(1)
+
+
+highest_rating_publisher
+```
+
+```{r}
+highest_rating_publisher <- Good_reads %>% 
+  select(publisher, average_rating) %>% 
+  group_by(publisher) %>% 
+  summarise(mean_ratings = mean(average_rating)) %>% 
+  arrange(desc(mean_ratings)) %>% 
+  head(1)
+
+
+highest_rating_publisher
 ```
 
