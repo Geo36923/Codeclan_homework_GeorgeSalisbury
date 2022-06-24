@@ -156,3 +156,9 @@ Earliest_releases <- Good_reads %>%
 Earliest_releases
 ```
 
+```{r}
+Latest_release <- Good_reads %>% 
+  select(publisher, title, bookID, publication_date) %>% 
+  group_by(publisher, publication_date) %>% 
+```
+
