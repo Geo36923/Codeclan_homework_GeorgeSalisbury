@@ -116,15 +116,16 @@ Highest_page_count
 ```
 
 ```{r}
-# Longest_language_code <- Good_reads %>% 
-#   select(language_code, num_pages) %>% 
-#   group_by() %>% 
-#   distinct(language_code)
-
 Highest_language_code <- Good_reads %>% 
   select(language_code, average_rating) %>% 
   summarise(max(average_rating)) 
 
 Highest_language_code  
+```
+
+```{r}
+Longest_language_Code <- Good_reads %>% 
+  select(language_code, num_pages) %>% 
+  
 ```
 
