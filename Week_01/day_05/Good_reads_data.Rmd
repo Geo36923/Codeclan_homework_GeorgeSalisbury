@@ -131,4 +131,28 @@ Longest_language_Code <- Good_reads %>%
   #pull()
 
 ```
+Q6
+```{r}
+Highest_book_rating <- Good_reads %>% 
+  select(language_code, average_rating) %>% 
+  group_by(language_code) %>% 
+  summarise(Highest_rating = max(average_rating)) #%>% 
+  #pull()
+
+Highest_book_rating
+```
+
+```{r}
+Good_reads
+```
+
+```{r}
+Earliest_releases <- Good_reads %>% 
+  select(publisher, title, publication_date) %>% 
+  group_by(publisher) %>% 
+  arrange(publication_date) %>% 
+  head(10)
+  
+Earliest_releases
+```
 
