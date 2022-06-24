@@ -181,9 +181,26 @@ Author_avg_rating
 ```{r}
 
 longest_books <- Good_reads %>% 
-  slice_min(num_pages, n = 15)
+  #slice_min(num_pages, n = 15) %>% 
+  arrange(desc(num_pages)) %>% 
+  head(15)
+
+
 
 shortest_books <- Good_reads %>% 
-  slice_max(runtime, n = 10)
+  slice_max(num_pages, n = 10) %>% 
+  arrange(num_pages) %>% 
+  head(15)
+```
+
+```{r}
+longest_books %>% 
+  select(title, num_pages, publisher)
+
+shortest_books
+```
+
+```{r}
+
 ```
 
