@@ -167,6 +167,20 @@ Latest_release
 ```
 
 ```{r}
-Author_avg_rating <- 
+Author_avg_rating <- Good_reads %>% 
+  select(authors, average_rating, ratings_count) %>% 
+  group_by(authors) %>% 
+  mutate(avg_authors_rating = mean(average_rating)) %>% 
+  arrange(desc(avg_authors_rating)) %>% 
+  head(20)
+
+
+Author_avg_rating
+```
+
+```{r}
+
+books_imputed <- Good_reads %>% 
+  slice_min()
 ```
 
