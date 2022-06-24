@@ -45,6 +45,15 @@ Good_reads %>%
 Highest_average_rating <- Good_reads %>% 
   select(title, average_rating) %>%
   group_by(average_rating) %>% 
-  head(5)
+  summarise(mean_rating = mean(average_rating)) %>% 
+  arrange(desc(mean_rating)) %>% 
+  head(5) %>% 
+  pull()
+
+Highest_average_rating
+```
+
+```{r}
+most_ratings
 ```
 
