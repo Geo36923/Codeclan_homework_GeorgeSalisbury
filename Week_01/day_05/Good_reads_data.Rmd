@@ -160,5 +160,13 @@ Earliest_releases
 Latest_release <- Good_reads %>% 
   select(publisher, title, bookID, publication_date) %>% 
   group_by(publisher, publication_date) %>% 
+  arrange(desc(publication_date)) %>% 
+  head(10)
+
+Latest_release
+```
+
+```{r}
+Author_avg_rating <- 
 ```
 
