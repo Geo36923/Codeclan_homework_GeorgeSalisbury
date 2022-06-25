@@ -14,6 +14,11 @@ Good_reads
 ```
 
 ```{r}
+Good_reads %>% 
+  pull()
+```
+
+```{r}
 head(Good_reads)
 
 tail(Good_reads)
@@ -109,7 +114,7 @@ highest_rating_publisher
 Highest_page_count <- Good_reads %>% 
   select(language_code, num_pages) %>% 
   summarise(num_pages, language_code) %>% 
-  arrange(desc(Highest_page_count))
+  arrange(desc(num_pages))
 
 
 Highest_page_count
@@ -201,6 +206,100 @@ shortest_books
 ```
 
 ```{r}
+isbn_organized <- Good_reads %>% 
+  select(isbn, title, isbn13, bookID) %>% 
+  distinct(isbn) %>% 
+  arrange(desc(isbn)) %>% 
+  head(15) #%>% 
+  #pull()
 
+isbn_organized
+
+```
+
+```{r}
+spanish_authors <- Good_reads %>% 
+  select(authors, language_code) %>% 
+  group_by(language_code) %>% 
+  filter(language_code == "spa")
+
+spanish_authors
+```
+
+```{r}
+range_of_languages <- Good_reads %>% 
+  select(language_code, authors, title, bookID) %>% 
+  group_by(language_code) #
+
+range_of_languages
+```
+
+```{r}
+how_many_pages <- Good_reads %>% 
+  select(title, bookID, num_pages, authors) %>% 
+  group_by(num_pages) %>% 
+  arrange(desc(num_pages)) %>% 
+  print(range(num_pages, na.rm = TRUE)) #%>% 
+  
+
+how_many_pages  
+```
+
+```{r}
+Good_reads %>% 
+  print(max(num_pages, na.rm=TRUE)-min(num_pages, na.rm=TRUE))
+```
+
+```{r}
+range_of_pages <- Good_reads %>% 
+  select(num_pages, title, bookID, authors) %>% 
+  group_by(title) %>% 
+  slice_max(num_pages, n = 1) %>%
+  slice_min(num_pages, n = 1) %>% 
+  print(slice_max(num_pages, n = 1) - slice_min(num_pages, n = 1))
+
+range_of_pages
+  
+  
+```
+
+```{r}
+Highest_page_count <- Good_reads %>% 
+  select(language_code, num_pages) %>% 
+  summarise(num_pages, language_code) %>% 
+  arrange(desc(num_pages))
+
+
+Highest_page_count
+```
+
+```{r}
+range_of_pages <- Good_reads %>% 
+  slice_max(num_pages)
+
+range_of_pages
+
+```
+
+```{r}
+Good_reads
+books_readlength <- Good_reads %>%
+  mutate(num_pages = na_if(num_pages, 0))
+
+books_readlength %>% 
+  summarise(count = sum(is.na(num_pages)))            
+```
+
+```{r}
+books_imputed <- Good_reads %>%  
+  mutate(num_pages = coalesce(num_pages, median(num_pages, na.rm = TRUE)))
+
+books_imputed %>% 
+  summarise(count = sum(is.na(num_pages)))
+```
+
+```{r}
+short_books <- Good_reads %>% 
+  mutate(num_pages = if_else(num_pages < 1000, median(num_pages), num_pages))
 ```
 
