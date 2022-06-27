@@ -129,9 +129,12 @@ Q5
 Longest_language_Code <- Good_reads %>% 
   select(language_code, num_pages) %>% 
   group_by(language_code) %>% 
-  summarise(longest_books = max(num_pages)) 
+  summarise(longest_books = max(num_pages)) %>% 
+  arrange(desc(longest_books))
+
   #pull()
 
+Longest_language_Code
 ```
 Q6
 ```{r}
@@ -312,5 +315,14 @@ pub_highest_ratings <- books_reduced %>%
   slice_head(n = 1)
 
 pub_highest_ratings
+```
+
+```{r}
+books_language <- Good_reads %>% 
+  group_by(language_code) %>% 
+  slice_max(num_pages, n = 1) %>% 
+  select(language_code, title, num_pages)
+
+books_language
 ```
 
