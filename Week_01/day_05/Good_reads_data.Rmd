@@ -49,11 +49,8 @@ Q1
 ```{r}
 Highest_average_rating <- Good_reads %>% 
   select(title, average_rating, bookID) %>%
-  group_by(average_rating) %>% 
-  summarise(mean_rating = mean(average_rating)) %>% 
-  arrange(desc(mean_rating)) %>% 
-  head(5) %>% 
-  pull()
+  arrange(desc(average_rating)) %>% 
+  head(5) 
 
 Highest_average_rating
 ```
@@ -301,5 +298,19 @@ books_imputed %>%
 ```{r}
 short_books <- Good_reads %>% 
   mutate(num_pages = if_else(num_pages < 1000, median(num_pages), num_pages))
+```
+
+```{r}
+books_reduced <- Good_reads %>% 
+  select(-bookID, -isbn, -isbn13)
+
+pub_highest_ratings <- books_reduced %>% 
+  filter(ratings_count > 25) %>% 
+  group_by(publisher) %>%
+  summarize(mean_ratings = mean(average_rating, na.rm = TRUE)) %>% 
+  arrange(desc(mean_ratings)) %>% 
+  slice_head(n = 1)
+
+pub_highest_ratings
 ```
 
