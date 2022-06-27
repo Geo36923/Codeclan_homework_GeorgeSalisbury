@@ -33,8 +33,10 @@ Transaction_info %>%
 ```
 
 ```{r}
-Joined_card_details %>% 
-  inner_join(Card_info, Customer_info, by = c())
+Card_info
+Customer_info
+#Joined_card_details %>% 
+inner_join(Card_info, Customer_info, by = c("Cust_ID" = "Cust_ID"))
   
 ```
 
