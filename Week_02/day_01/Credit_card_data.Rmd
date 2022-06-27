@@ -49,6 +49,6 @@ full_join(Fraud_info, Transaction_info, by = c("Transaction_ID" = "Transaction_I
 
 Q1.4
 ```{r}
-
+semi_join()
 ```
 
