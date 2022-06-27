@@ -53,6 +53,13 @@ semi_join(Card_info, Transaction_info, by = c("Card_Number" = "Credit_Card_ID"))
 ```
 Q2.1
 ```{r}
+Hat_data <- read_csv('data/hat_observations.csv')
 
+Hat_data
+```
+
+```{r}
+Separated_hat_info <- Hat_data %>% 
+  
 ```
 
