@@ -326,3 +326,15 @@ books_language <- Good_reads %>%
 books_language
 ```
 
+```{r}
+Good_reads %>% 
+  group_by(language_code) %>% 
+  summarise(x = 1)
+```
+
+```{r}
+Good_reads %>% 
+  mutate(num_pages = if_else(num_pages == 0, NA_real_, num_pages)) %>% 
+  filter(!is.na(num_pages))
+```
+
