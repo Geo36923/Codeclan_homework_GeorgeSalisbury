@@ -1,0 +1,40 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(CodeClanData)
+library(janitor)
+library(tidyr)
+```
+
+```{r}
+Card_info <- read_csv('data/CardBase.csv') 
+Customer_info <- read_csv('data/CustomerBase.csv')
+Fraud_info <- read_csv('data/FraudBase.csv')
+Transaction_info <- read_csv('data/TransactionBase.csv')
+
+```
+
+```{r}
+Card_info %>% 
+  clean_names()
+
+Customer_info %>% 
+  clean_names()
+
+Fraud_info %>% 
+  clean_names()
+
+Transaction_info %>% 
+  clean_names()
+```
+
+```{r}
+Joined_card_details %>% 
+  inner_join(Card_info, Customer_info, by = c())
+  
+```
+
