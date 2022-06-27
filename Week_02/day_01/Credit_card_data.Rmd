@@ -60,6 +60,7 @@ Hat_data
 
 ```{r}
 Separated_hat_info <- Hat_data %>% 
-  
+  separate(col = observation,
+           into = )
 ```
 
