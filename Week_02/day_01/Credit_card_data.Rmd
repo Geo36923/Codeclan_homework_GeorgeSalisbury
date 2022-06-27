@@ -9,7 +9,7 @@ library(CodeClanData)
 library(janitor)
 library(tidyr)
 ```
-
+Q1.1
 ```{r}
 Card_info <- read_csv('data/CardBase.csv') 
 Customer_info <- read_csv('data/CustomerBase.csv')
@@ -31,12 +31,24 @@ Fraud_info %>%
 Transaction_info %>% 
   clean_names()
 ```
-
+Q1.2
 ```{r}
-Card_info
-Customer_info
+#Card_info
+#Customer_info
 #Joined_card_details %>% 
-inner_join(Card_info, Customer_info, by = c("Cust_ID" = "Cust_ID"))
+left_join(Card_info, Customer_info, by = c("Cust_ID" = "Cust_ID"))
   
+```
+
+Q1.3
+```{r}
+#Transaction_info
+#Fraud_info
+full_join(Fraud_info, Transaction_info, by = c("Transaction_ID" = "Transaction_ID"))
+```
+
+Q1.4
+```{r}
+
 ```
 
