@@ -61,6 +61,42 @@ Hat_data
 ```{r}
 Separated_hat_info <- Hat_data %>% 
   separate(col = observation,
-           into = )
+           into = c("hat_colour", "hat_type"),
+           sep = "/")
+
+Separated_hat_info
+```
+
+```{r}
+United_date <- Hat_data %>% 
+  unite(col = date,
+        c("day", "month", "year"),
+        sep = ":")
+
+United_date
+```
+
+Extension 1.1
+```{r}
+United_datasets <- bind_rows(Card_info, Customer_info, Transaction_info, Fraud_info) %>% 
+  select(Age, Customer_Segment, Customer_Vintage_Group, Transaction_ID, Credit_Card_ID, Transaction_Value, Transaction_Segment, Fraud_Flag) %>% 
+    drop_na()
+
+United_datasets
+```
+Extension 1.2
+```{r}
+Exam_results <- read_csv('data/exam_scores.csv')
+
+Exam_results
+```
+
+```{r}
+New_results <- Exam_results %>% 
+  pivot_longer(cols = starts_with("EX"),
+               names_to = "Exam_question",
+               names_prefix = "EX",
+               values_to = "Score")
+New_results
 ```
 
