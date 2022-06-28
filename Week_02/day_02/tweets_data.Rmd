@@ -34,7 +34,7 @@ Favourite_tweets
 Avg_retweets <- Tweet_data %>% 
   select(retweet_count, retweet_source) %>% 
   group_by(retweet_count) %>%
-  split(retweet_count, ) %>% 
+  split(retweet_count, retweet_source) %>% 
   filter(is_quote == TRUE) %>% 
   summarise(mean_retweets = mean(retweet_count)) #%>%
    
