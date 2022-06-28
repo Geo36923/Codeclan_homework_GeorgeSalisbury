@@ -5,6 +5,8 @@ output: html_notebook
 ```{r}
 library(tidyverse)
 library(CodeClanData)
+library(janitor)
+library(tidyr)
 ```
 
 q1
@@ -21,10 +23,23 @@ q2
 ```{r}
 Tweet_data
 Favourite_tweets <- Tweet_data %>% 
-  select(tweet_id, favorite_count, user_id) %>% 
-  summarise(sum(favorite_count)) %>% 
-  filter(is_quote == FALSE)
+  select(tweet_id, favorite_count, user_id, is_quote) %>% 
+  filter(is_quote == TRUE) %>% 
+  summarise(sum(favorite_count))
 
 Favourite_tweets
 ```
 
+```{r}
+Avg_retweets <- Tweet_data %>% 
+  select(retweet_count, retweet_source) %>% 
+  group_by(retweet_count) %>%
+  split(retweet_count, ) %>% 
+  filter(is_quote == TRUE) %>% 
+  summarise(mean_retweets = mean(retweet_count)) #%>%
+   
+   
+  
+```
+
+a
