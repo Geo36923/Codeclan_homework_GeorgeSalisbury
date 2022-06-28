@@ -58,11 +58,24 @@ Overall_likes <- Tweet_data %>%
   arrange(desc(most_likes))
   
 ```
-
+q5
 ```{r}
 Mean_characters <- Tweet_data %>% 
   select(text, display_text_width, tweet_id) %>% 
-  group_by(display_text_width, text) %>% 
-  
+  group_by(display_text_width) %>% 
+  summarise(mean_text = mean(display_text_width)) %>% 
+  arrange(desc(mean_text))
+
+Mean_characters  
+```
+q6
+```{r}
+CodeClan_info <- read_csv('data/code_clan_info.csv')
+
+CodeClan_info
+```
+
+```{r}
+
 ```
 
