@@ -1,0 +1,25 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+library(CodeClanData)
+```
+
+q1
+```{r}
+Tweet_data <- read_csv('data/code_clan_tweets.csv')
+
+nrow(Tweet_data)
+ncol(Tweet_data)
+
+ls(Tweet_data)
+
+```
+q2
+```{r}
+Favourite_tweets <- Tweet_data %>% 
+  select(tweet_id, )
+```
+
