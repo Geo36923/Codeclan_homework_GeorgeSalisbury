@@ -20,6 +20,7 @@ ls(Tweet_data)
 q2
 ```{r}
 Favourite_tweets <- Tweet_data %>% 
-  select(tweet_id, )
+  select(tweet_id, favorite_count, user_id) %>% 
+  summarise()
 ```
 
