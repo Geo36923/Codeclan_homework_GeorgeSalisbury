@@ -1829,16 +1829,20 @@ lgl  (5): is_quote, is_retweet, quote_count, reply_count, symbols
 <p>q2</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmF2b3VyaXRlX3R3ZWV0cyA8LSBUd2VldF9kYXRhICU+JSBcbiAgc2VsZWN0KHR3ZWV0X2lkLCBmYXZvcml0ZV9jb3VudCwgdXNlcl9pZCkgJT4lIFxuICBzdW1tYXJpc2UoKVxuYGBgIn0= -->
-<pre class="r"><code>Favourite_tweets &lt;- Tweet_data %&gt;% 
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVHdlZXRfZGF0YVxuRmF2b3VyaXRlX3R3ZWV0cyA8LSBUd2VldF9kYXRhICU+JSBcbiAgc2VsZWN0KHR3ZWV0X2lkLCBmYXZvcml0ZV9jb3VudCwgdXNlcl9pZCkgJT4lIFxuICBzdW1tYXJpc2Uoc3VtKGZhdm9yaXRlX2NvdW50KSkgJT4lIFxuICBmaWx0ZXIoaXNfcXVvdGUgPT0gRkFMU0UpXG5cbkZhdm91cml0ZV90d2VldHNcbmBgYCJ9 -->
+<pre class="r"><code>Tweet_data
+Favourite_tweets &lt;- Tweet_data %&gt;% 
   select(tweet_id, favorite_count, user_id) %&gt;% 
-  summarise()</code></pre>
+  summarise(sum(favorite_count)) %&gt;% 
+  filter(is_quote == FALSE)
+
+Favourite_tweets</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoQ29kZUNsYW5EYXRhKQ0KYGBgDQoNCnExDQpgYGB7cn0NClR3ZWV0X2RhdGEgPC0gcmVhZF9jc3YoJ2RhdGEvY29kZV9jbGFuX3R3ZWV0cy5jc3YnKQ0KDQpucm93KFR3ZWV0X2RhdGEpDQpuY29sKFR3ZWV0X2RhdGEpDQoNCmxzKFR3ZWV0X2RhdGEpDQoNCmBgYA0KcTINCmBgYHtyfQ0KRmF2b3VyaXRlX3R3ZWV0cyA8LSBUd2VldF9kYXRhICU+JSANCiAgc2VsZWN0KHR3ZWV0X2lkLCBmYXZvcml0ZV9jb3VudCwgdXNlcl9pZCkgJT4lIA0KICBzdW1tYXJpc2UoKQ0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoQ29kZUNsYW5EYXRhKQ0KYGBgDQoNCnExDQpgYGB7cn0NClR3ZWV0X2RhdGEgPC0gcmVhZF9jc3YoJ2RhdGEvY29kZV9jbGFuX3R3ZWV0cy5jc3YnKQ0KDQpucm93KFR3ZWV0X2RhdGEpDQpuY29sKFR3ZWV0X2RhdGEpDQoNCmxzKFR3ZWV0X2RhdGEpDQoNCmBgYA0KcTINCmBgYHtyfQ0KVHdlZXRfZGF0YQ0KRmF2b3VyaXRlX3R3ZWV0cyA8LSBUd2VldF9kYXRhICU+JSANCiAgc2VsZWN0KHR3ZWV0X2lkLCBmYXZvcml0ZV9jb3VudCwgdXNlcl9pZCkgJT4lIA0KICBzdW1tYXJpc2Uoc3VtKGZhdm9yaXRlX2NvdW50KSkgJT4lIA0KICBmaWx0ZXIoaXNfcXVvdGUgPT0gRkFMU0UpDQoNCkZhdm91cml0ZV90d2VldHMNCmBgYA0KDQo=</div>
 
 
 

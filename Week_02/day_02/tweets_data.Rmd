@@ -19,8 +19,12 @@ ls(Tweet_data)
 ```
 q2
 ```{r}
+Tweet_data
 Favourite_tweets <- Tweet_data %>% 
   select(tweet_id, favorite_count, user_id) %>% 
-  summarise()
+  summarise(sum(favorite_count)) %>% 
+  filter(is_quote == FALSE)
+
+Favourite_tweets
 ```
 
