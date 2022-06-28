@@ -76,6 +76,14 @@ CodeClan_info
 ```
 
 ```{r}
+CodeClan_status <- full_join(CodeClan_info, Tweet_data, by = c("status_url" = "urls_expanded_url"))
+```
 
+```{r}
+Tweet_data
+CodeClan_Hashtags <- CodeClan_status %>% 
+  select(tweet_id.x) %>% 
+  drop_na(hashtags) %>% 
+  str_to_lower(hashtags)
 ```
 
