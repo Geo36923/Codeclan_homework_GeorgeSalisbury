@@ -1860,33 +1860,45 @@ Favourite_tweets</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQXZnX3JldHdlZXRzIDwtIFR3ZWV0X2RhdGEgJT4lIFxuICBzZWxlY3QocmV0d2VldF9jb3VudCwgcmV0d2VldF9zb3VyY2UpICU+JSBcbiAgZ3JvdXBfYnkocmV0d2VldF9jb3VudCkgJT4lXG4gICNzcGxpdChyZXR3ZWV0X2NvdW50LCByZXR3ZWV0X3NvdXJjZSkgJT4lIFxuICBmaWx0ZXIoaXNfcXVvdGUgPT0gVFJVRSkgJT4lIFxuICBzdW1tYXJpc2UobWVhbl9yZXR3ZWV0cyA9IG1lYW4ocmV0d2VldF9jb3VudCkpICMlPiVcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQXZnX3JldHdlZXRzIDwtIFR3ZWV0X2RhdGEgJT4lIFxuICBzZWxlY3QocmV0d2VldF9jb3VudCwgcmV0d2VldF9zb3VyY2UpICU+JSBcbiAgZ3JvdXBfYnkocmV0d2VldF9jb3VudCkgJT4lXG4gIHNwbGl0KHJldHdlZXRfY291bnQsIHJldHdlZXRfc291cmNlKSAlPiUgXG4gIGZpbHRlcihpc19xdW90ZSA9PSBUUlVFKSAlPiUgXG4gIHN1bW1hcmlzZShtZWFuX3JldHdlZXRzID0gbWVhbihyZXR3ZWV0X2NvdW50KSkgIyU+JVxuXG4gICBcblxuYGBgIn0= -->
 <pre class="r"><code>Avg_retweets &lt;- Tweet_data %&gt;% 
   select(retweet_count, retweet_source) %&gt;% 
   group_by(retweet_count) %&gt;%
-  #split(retweet_count, retweet_source) %&gt;% 
+  split(retweet_count, retweet_source) %&gt;% 
   filter(is_quote == TRUE) %&gt;% 
-  summarise(mean_retweets = mean(retweet_count)) #%&gt;%</code></pre>
+  summarise(mean_retweets = mean(retweet_count)) #%&gt;%
+
+   
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYGZpbHRlcigpYDpcbiEgUHJvYmxlbSB3aGlsZSBjb21wdXRpbmcgYC4uMSA9IGlzX3F1b3RlID09IFRSVUVgLlxu4oS5IFRoZSBlcnJvciBvY2N1cnJlZCBpbiBncm91cCAxOiByZXR3ZWV0X2NvdW50ID0gMC5cbkNhdXNlZCBieSBlcnJvcjpcbiEgb2JqZWN0ICdpc19xdW90ZScgbm90IGZvdW5kXG5CYWNrdHJhY2U6XG4gMS4gLi4uICU+JSBzdW1tYXJpc2UobWVhbl9yZXR3ZWV0cyA9IG1lYW4ocmV0d2VldF9jb3VudCkpXG4gNC4gZHBseXI6OjpmaWx0ZXIuZGF0YS5mcmFtZSguLCBpc19xdW90ZSA9PSBUUlVFKVxuIDUuIGRwbHlyOjo6ZmlsdGVyX3Jvd3MoLmRhdGEsIC4uLiwgY2FsbGVyX2VudiA9IGNhbGxlcl9lbnYoKSlcbiA2LiBkcGx5cjo6OmZpbHRlcl9ldmFsKGRvdHMsIG1hc2sgPSBtYXNrLCBlcnJvcl9jYWxsID0gZXJyb3JfY2FsbClcbiA4LiBtYXNrJGV2YWxfYWxsX2ZpbHRlcihkb3RzLCBlbnZfZmlsdGVyKVxuIn0= -->
-<pre><code>Error in `filter()`:
-! Problem while computing `..1 = is_quote == TRUE`.
-ℹ The error occurred in group 1: retweet_count = 0.
-Caused by error:
-! object &#39;is_quote&#39; not found
-Backtrace:
- 1. ... %&gt;% summarise(mean_retweets = mean(retweet_count))
- 4. dplyr:::filter.data.frame(., is_quote == TRUE)
- 5. dplyr:::filter_rows(.data, ..., caller_env = caller_env())
- 6. dplyr:::filter_eval(dots, mask = mask, error_call = error_call)
- 8. mask$eval_all_filter(dots, env_filter)</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0thdGUncyBjb2RlXG5jb2RlX2NsYW5fdHdlZXRzICU+JSBcbiAgZmlsdGVyKGlzX3F1b3RlID09IEZBTFNFKSAlPiUgXG4gIGdyb3VwX2J5KHNvdXJjZSkgJT4lIFxuICBzdW1tYXJpc2UobWVhbihyZXR3ZWV0X2NvdW50KSlcbmBgYCJ9 -->
+<pre class="r"><code>#Kate&#39;s code
+code_clan_tweets %&gt;% 
+  filter(is_quote == FALSE) %&gt;% 
+  group_by(source) %&gt;% 
+  summarise(mean(retweet_count))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gZmlsdGVyKC4sIGlzX3F1b3RlID09IEZBTFNFKSA6IFxuICBvYmplY3QgJ2NvZGVfY2xhbl90d2VldHMnIG5vdCBmb3VuZFxuIn0= -->
+<pre><code>Error in filter(., is_quote == FALSE) : 
+  object &#39;code_clan_tweets&#39; not found</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>a</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuT3ZlcmFsbF9saWtlcyA8LSBUd2VldF9kYXRhICU+JSBcbiAgc2VsZWN0KGZhdm9yaXRlX2NvdW50LCB0d2VldF9pZCwgdXNlcl9pZClcbmBgYCJ9 -->
+<pre class="r"><code>Overall_likes &lt;- Tweet_data %&gt;% 
+  select(favorite_count, tweet_id, user_id)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoQ29kZUNsYW5EYXRhKQ0KbGlicmFyeShqYW5pdG9yKQ0KbGlicmFyeSh0aWR5cikNCmBgYA0KDQpxMQ0KYGBge3J9DQpUd2VldF9kYXRhIDwtIHJlYWRfY3N2KCdkYXRhL2NvZGVfY2xhbl90d2VldHMuY3N2JykNCg0KbnJvdyhUd2VldF9kYXRhKQ0KbmNvbChUd2VldF9kYXRhKQ0KDQpscyhUd2VldF9kYXRhKQ0KDQpgYGANCnEyDQpgYGB7cn0NClR3ZWV0X2RhdGENCkZhdm91cml0ZV90d2VldHMgPC0gVHdlZXRfZGF0YSAlPiUgDQogIHNlbGVjdCh0d2VldF9pZCwgZmF2b3JpdGVfY291bnQsIHVzZXJfaWQsIGlzX3F1b3RlKSAlPiUgDQogIGZpbHRlcihpc19xdW90ZSA9PSBUUlVFKSAlPiUgDQogIHN1bW1hcmlzZShzdW0oZmF2b3JpdGVfY291bnQpKQ0KDQpGYXZvdXJpdGVfdHdlZXRzDQpgYGANCg0KYGBge3J9DQpBdmdfcmV0d2VldHMgPC0gVHdlZXRfZGF0YSAlPiUgDQogIHNlbGVjdChyZXR3ZWV0X2NvdW50LCByZXR3ZWV0X3NvdXJjZSkgJT4lIA0KICBncm91cF9ieShyZXR3ZWV0X2NvdW50KSAlPiUNCiAgI3NwbGl0KHJldHdlZXRfY291bnQsIHJldHdlZXRfc291cmNlKSAlPiUgDQogIGZpbHRlcihpc19xdW90ZSA9PSBUUlVFKSAlPiUgDQogIHN1bW1hcmlzZShtZWFuX3JldHdlZXRzID0gbWVhbihyZXR3ZWV0X2NvdW50KSkgIyU+JQ0KICAgDQogICANCiAgDQpgYGANCg0KYQ==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoQ29kZUNsYW5EYXRhKQ0KbGlicmFyeShqYW5pdG9yKQ0KbGlicmFyeSh0aWR5cikNCmBgYA0KDQpxMQ0KYGBge3J9DQpUd2VldF9kYXRhIDwtIHJlYWRfY3N2KCdkYXRhL2NvZGVfY2xhbl90d2VldHMuY3N2JykNCg0KbnJvdyhUd2VldF9kYXRhKQ0KbmNvbChUd2VldF9kYXRhKQ0KDQpscyhUd2VldF9kYXRhKQ0KDQpgYGANCnEyDQpgYGB7cn0NClR3ZWV0X2RhdGENCkZhdm91cml0ZV90d2VldHMgPC0gVHdlZXRfZGF0YSAlPiUgDQogIHNlbGVjdCh0d2VldF9pZCwgZmF2b3JpdGVfY291bnQsIHVzZXJfaWQsIGlzX3F1b3RlKSAlPiUgDQogIGZpbHRlcihpc19xdW90ZSA9PSBUUlVFKSAlPiUgDQogIHN1bW1hcmlzZShzdW0oZmF2b3JpdGVfY291bnQpKQ0KDQpGYXZvdXJpdGVfdHdlZXRzDQpgYGANCg0KYGBge3J9DQpBdmdfcmV0d2VldHMgPC0gVHdlZXRfZGF0YSAlPiUgDQogIHNlbGVjdChyZXR3ZWV0X2NvdW50LCByZXR3ZWV0X3NvdXJjZSkgJT4lIA0KICBncm91cF9ieShyZXR3ZWV0X2NvdW50KSAlPiUNCiAgc3BsaXQocmV0d2VldF9jb3VudCwgcmV0d2VldF9zb3VyY2UpICU+JSANCiAgZmlsdGVyKGlzX3F1b3RlID09IFRSVUUpICU+JSANCiAgc3VtbWFyaXNlKG1lYW5fcmV0d2VldHMgPSBtZWFuKHJldHdlZXRfY291bnQpKSAjJT4lDQoNCiAgIA0KDQpgYGANCg0KYGBge3J9DQojS2F0ZSdzIGNvZGUNCmNvZGVfY2xhbl90d2VldHMgPC0gVHdlZXRfZGF0YSAlPiUgDQogIGZpbHRlcihpc19xdW90ZSA9PSBGQUxTRSkgJT4lIA0KICBncm91cF9ieShzb3VyY2UpICU+JSANCiAgc3VtbWFyaXNlKG1lYW4ocmV0d2VldF9jb3VudCkpDQpgYGANCg0KYGBge3J9DQpPdmVyYWxsX2xpa2VzIDwtIFR3ZWV0X2RhdGEgJT4lIA0KICBzZWxlY3QoZmF2b3JpdGVfY291bnQsIHR3ZWV0X2lkLCB1c2VyX2lkKQ0KYGBgDQoNCg==</div>
 
 
 

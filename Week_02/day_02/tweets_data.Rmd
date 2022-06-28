@@ -34,12 +34,24 @@ Favourite_tweets
 Avg_retweets <- Tweet_data %>% 
   select(retweet_count, retweet_source) %>% 
   group_by(retweet_count) %>%
-  #split(retweet_count, retweet_source) %>% 
+  split(retweet_count, retweet_source) %>% 
   filter(is_quote == TRUE) %>% 
   summarise(mean_retweets = mean(retweet_count)) #%>%
+
    
-   
-  
+
 ```
 
-a
+```{r}
+#Kate's code
+code_clan_tweets <- Tweet_data %>% 
+  filter(is_quote == FALSE) %>% 
+  group_by(source) %>% 
+  summarise(mean(retweet_count))
+```
+
+```{r}
+Overall_likes <- Tweet_data %>% 
+  select(favorite_count, tweet_id, user_id)
+```
+
