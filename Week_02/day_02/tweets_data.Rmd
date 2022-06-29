@@ -49,6 +49,14 @@ code_clan_tweets <- Tweet_data %>%
   group_by(source) %>% 
   summarise(mean(retweet_count))
 ```
+
+```{r}
+Tweet_data %>%   
+  filter(is_quote == FALSE) %>% 
+  group_by(source) %>% 
+  summarise(mean_retweets = mean(retweet_count))
+```
+
 q4
 ```{r}
 Overall_likes <- Tweet_data %>% 
@@ -68,25 +76,54 @@ Mean_characters <- Tweet_data %>%
 
 Mean_characters  
 ```
+
+```{r}
+code_clan_tweets_text <- Tweet_data %>% 
+  
+```
+
+```{r}
+tweet_split <- Tweet_data %>% 
+  pull(text) %>% 
+  str_split("") %>% 
+  flatten_chr()
+
+lengths(tweet_split) / nrow(Tweet_data)
+```
+
+```{r}
+code_clan_tweets_text <- Tweet_data %>% 
+  mutate(count_str_length = str_length(text)) %>% 
+  select(count_str_length, display_text_width)
+
+code_clan_tweets_text %>% 
+  summarise(average = mean(count_str_length))
+  
+```
+
 q6
 ```{r}
 CodeClan_info <- read_csv('data/code_clan_info.csv')
 
-CodeClan_info
+head(CodeClan_info)
+head(Tweet_data)
+
+CodeClan_status <- Tweet_data %>% 
+  inner_join(CodeClan_info, by = "tweet_id")
+
+CodeClan_status
 ```
 
+q7
 ```{r}
-CodeClan_status <- full_join(CodeClan_info, Tweet_data, by = c("status_url" = "urls_expanded_url"))
-```
-
-```{r}
-Tweet_data
+#Tweet_data
 CodeClan_Hashtags <- CodeClan_status %>% 
-  select(tweet_id.x) %>% 
+  select(tweet_id, hashtags) %>% 
   drop_na(hashtags) %>% 
-  str_to_lower(hashtags)
+  mutate(hashtags = str_to_lower(hashtags))
 ```
 
+Answers from CodeClan_notes
 ```{r}
 Tweet_data %>%
   mutate(media_type = coalesce(media_type, "text")) %>%
@@ -128,7 +165,7 @@ hashtags_multiple
 ```
 
 ```{r}
-codeclan_tweets %>%
+Tweet_data %>%
   mutate(lowcase_tweets = str_to_lower(text)) %>%
   filter(str_detect(lowcase_tweets, "edinburgh")) %>%
   summarise(count = n())
@@ -139,5 +176,11 @@ user_pattern <- "@[a-zA-Z0-9_]+"
 tweets <- Tweet_data %>% 
   select(text)
 head(str_extract_all(tweets$text, user_pattern))
+```
+
+```{r}
+code_clan_joined %>% 
+  mutate(text = str_to_lower(text)) %>% 
+  summarise(contains_pattern = sum(str_detect(text, "edinburgh")))
 ```
 
