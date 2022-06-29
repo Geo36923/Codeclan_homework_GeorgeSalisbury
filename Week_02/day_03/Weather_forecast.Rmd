@@ -1,0 +1,32 @@
+```{r}
+library(tidyverse)
+library(CodeClanData)
+library(janitor)
+```
+q1
+```{r}
+Weather_forecast_triduum <- list(
+  Thursday = list(rain_chance = "high", wind_mph = 35, temperature_C = 13),
+  Friday = list(rain_chance = "low", wind_mph = 25, temperature_C = 16),
+  Saturday = list(rain_chance = "low", wind_mph = 19, temperature_C = 22)
+)
+Weather_forecast_triduum
+```
+q2
+```{r}
+Weather_forecast_triduum$Thursday$rain_chance
+```
+
+```{r}
+Weather_forecast_triduum$Friday$wind_mph
+```
+
+```{r}
+Weather_forecast_triduum$Thursday$temperature_C
+```
+
+q3
+```{r}
+weather_matrix <- matrix(nrow = 2, ncol = 14)
+```
+

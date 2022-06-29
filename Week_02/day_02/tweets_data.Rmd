@@ -184,3 +184,11 @@ code_clan_joined %>%
   summarise(contains_pattern = sum(str_detect(text, "edinburgh")))
 ```
 
+```{r}
+codeclan_edinburgh <- CodeClan_info %>% 
+  select(text) %>% 
+  mutate(text = c(str_to_lower(text)), 
+         edinburgh_detect = str_count(text, "[Ee]dinburgh")) %>% 
+  summarise(sum(edinburgh_detect))
+```
+
