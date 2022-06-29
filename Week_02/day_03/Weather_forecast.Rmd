@@ -73,23 +73,46 @@ The_answer_is <- function(x) {
   }
           
           
-        }
+        
 ```
 
 ```{r}
+a <- c(1, 2, 3)
+b <- c(1, 3, 2)
 
+a == b
+
+sort(a) == sort(b)
+
+all(a == b)
+
+Similarity_checker <- function(x){
+  if (a == b) {
+    print("Exactly the same")
+    print("The same")
+    print("Different")
+  }
+}
 ```
 
 q6
 ```{r}
- vector_1 <- c(1, 2, 3, 4, 8)
-vector_2 <- c(2, 4, 8, 6, 10)
-Similarity_checker <- function(x){
-  if(vector_1 ==){
-    
-  } else {
-    print("Different")
-  }
-}
+a <- c(1, 2, 3)
+b <- c(1, 3, 2)
+
+a == b
+
+sort(a) == sort(b)
+
+all(a == b)
+#  vector_1 <- c(1, 2, 3, 4, 8)
+# vector_2 <- c(2, 4, 8, 6, 10)
+# Similarity_checker <- function(x){
+#   if(vector_1 ==){
+#     
+#   } else {
+#     print("Different")
+#   }
+# }
 ```
 
