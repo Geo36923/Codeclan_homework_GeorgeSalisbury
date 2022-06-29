@@ -57,8 +57,34 @@ weather_matrix[1,3]
 # }
 # product_matrix
 ```
+q5
+```{r}
+The_answer_is <- function(x) 
+for (i in The_answer_is) {
+  
+}  
+  if(x < 10){
+    if(x * 10 == 0){
+    if(x %% 10 == 0){
+      print("The answer is", x)
+    } else {
+      print("Invalid input")
+    }
+    }
+  }
+  
+```
 
 ```{r}
 
+```
+
+q6
+```{r}
+# vector_1 <- c(1, 2, 3, 4, 8)
+# vector_2 <- c(2, 4, 8, 6, 10)
+Similarity_checker <- function(x){
+  setequal()
+}
 ```
 
