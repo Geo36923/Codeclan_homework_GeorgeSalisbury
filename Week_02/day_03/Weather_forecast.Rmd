@@ -27,7 +27,9 @@ Weather_forecast_triduum$Thursday$temperature_C
 
 q3
 ```{r}
-weather_matrix <- matrix(1:7, nrow = 2, ncol = 7)
+weather_matrix_vector <- c(14L, 20L, 14L, 11L, 14L, 15L, 16L, 18L, 17L, 13L, 16L, 16L, 
+18L, 16L)
+weather_matrix <- matrix(1:7, nrow = 2, ncol = 7, byrow = TRUE)
 #weather_matrix
 # for (row_num in 1:dim(weather_matrix)[1]){
 #   for (col_num in 1:dim(weather_matrix)[2]){
@@ -40,12 +42,10 @@ weather_matrix
 q4
 ```{r}
 weather_matrix[2,3]
-weather_matrix[2]
-weather_matrix[1,1]
-weather_matrix[1,5]
-weather_matrix[2,5]
-weather_matrix[1,3]
+weather_matrix[2, ]
+weather_matrix[, c(1, 3, 5)]
 ```
+
 
 ```{r}
 #rownames(x) <- list(c)
@@ -93,6 +93,25 @@ The_answer_is <- function(x){
 ```
 
 ```{r}
+answer_or_divide <- function(x) {
+  if (is.character(x)) {
+    return(paste("The answer is: ", x))
+  }
+is_small <-  x < 10
+  if (is.numeric(x)) {
+    if (is_small) {
+      return(x)
+    } else {
+      return(x / 10)
+    }
+  }
+
+  return("Invalid input")
+}
+
+```
+is_small = x < 10
+```{r} 
 a <- c(1, 2, 3)
 b <- c(1, 3, 2)
 
@@ -109,6 +128,15 @@ Similarity_checker <- function(x){
     print("Different")
   }
 }
+```
+
+```{r}
+if (!is_manual) {
+  do this
+}
+mtcars %>% 
+  select(am) %>% 
+  mutate(is_manual = am == 1)
 ```
 
 q6
@@ -153,3 +181,104 @@ for( t in 1:12)
 }
 ```
 
+```{r}
+forecast_14_days_vector <- c(14L, 20L, 14L, 11L, 14L, 15L, 16L, 18L, 17L, 13L, 16L, 16L, 
+18L, 16L)
+
+forecast_14_days <- matrix(
+  forecast_14_days_vector,
+  nrow = 2,
+  ncol = 7, 
+  byrow = TRUE
+)
+
+forecast_14_days
+```
+
+
+
+```{r}
+answer_or_divide <- function(x) {
+  if (is.character(x)) {
+    return(paste("The answer is: ", x))
+  }
+
+  if (is.numeric(x)) {
+    if (x < 10) {
+      return(x)
+    } else {
+      return(x / 10)
+    }
+  }
+
+  return("Invalid input")
+}
+```
+
+```{r}
+
+is_same_vector <- function(vector_1, vector_2) {
+  is_identical <- all(vector_1 == vector_2)
+  
+  if (all(vector_1 == vector_2)) {
+    return("Exactly the same")
+  }
+is_similar <- all(sort(vector_1) == sort(vector_2))
+  if (is_similar) {
+    return("The same")
+  }
+
+  return("Different")
+}
+```
+
+```{r}
+a <- c(1, 2, 3, 4, 5)
+b <- c(1, 4, 2, 3, 5)
+c <- c(9, 4, 8, 1, 0)
+```
+
+```{r}
+is_same_vector(a, a)
+is_same_vector(a, b)
+is_same_vector(a, c)
+```
+
+```{r}
+# create empty matrix
+mult_table <- matrix(nrow = 12, ncol = 12)
+
+for (outer_factor in 1:12){
+  for (inner_factor in 1:12){
+    mult_table[outer_factor, inner_factor] = outer_factor * inner_factor
+  }
+}
+
+mult_table
+```
+
+```{r}
+make_histogram <- function(x){
+  
+  distinct <- sort(unique(x))
+  
+  for (i in distinct){
+    
+    count <- sum(x == i)
+    
+    cat(i)
+    cat(" | ")
+    cat(rep("*", count))
+    cat("\n")
+    
+  }
+  
+}
+```
+
+```{r}
+numbers <- sample(1:5, size = 50, replace = TRUE) 
+numbers
+
+make_histogram(numbers)
+```
