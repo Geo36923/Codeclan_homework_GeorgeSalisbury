@@ -1,0 +1,29 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## Question 1.
+
+Find the weather forecast for the next three days online. Create a list of lists in which each inner list should be labelled with the name of the day of the week. Each inner list should contain named elements telling you the temperature, chance of rain and wind speed.
+
+### my understanding
+
+> write what you think you are trying to do  
+- Might mean paraphrasing the question
+- Should include a plain english description of the code you intend to write
+- If you change your code, don't change what you wrote above
+
+```{r}
+some code
+
+an output
+```
+
+### my explanation
+
+> if you changed your code, explain how / why here
+
+###my Interpretation
+
+> write an interpretation of what your output tells you
