@@ -68,20 +68,26 @@ ON e.team_id = t.id
 --MVP
 --Q3(b)
 SELECT 
-	e.team_id,
-	e.id AS Personal_id,
-	t.id,
-	t.name
-	COUNT(e.id)
+	t.name,
+	COUNT(e.id) AS sum_employees
 FROM employees AS e LEFT JOIN teams AS t
 ON e.team_id = t.id
-GROUP BY 
+GROUP BY t.name
 --MVP
 --Q3(c)
-
+SELECT 
+	t.name,
+	COUNT(e.id) AS sum_employees
+FROM employees AS e LEFT JOIN teams AS t
+ON e.team_id = t.id
+GROUP BY t.name
+ORDER BY sum_employees ASC
 --MVP
 --Q4(a)
-
+SELECT 
+	team_id 
+	
+FROM employees AS e RIGHT JOIN teams AS t
 --MVP
 --Q4(b)
 
