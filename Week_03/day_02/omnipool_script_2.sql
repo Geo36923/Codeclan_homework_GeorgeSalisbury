@@ -125,8 +125,14 @@ ON e.team_id = t.id
 GROUP BY t.id 
 HAVING CAST(charge_cost AS INT) * Count(e.id) > 5000
 --WHERE total_day_charge > 8000
+
 --EXTENSION 
 --Q1
+SELECT 
+DISTINCT committee_id   
+FROM employees_committees AS ec INNER JOIN
+
+
 
 --EXTENSION 
 --Q2
