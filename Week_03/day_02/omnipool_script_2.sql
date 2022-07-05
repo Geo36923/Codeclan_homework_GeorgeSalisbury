@@ -83,7 +83,7 @@ ON e.team_id = t.id
 GROUP BY t.name
 ORDER BY sum_employees ASC
 --MVP
---Q4(a)
+--Q4(a) Create a table with the team id, team name and the count of the number of employees in each team.
 SELECT 
 	--e.team_id, 
 	t.id AS team_ID,
@@ -92,13 +92,39 @@ SELECT
 FROM employees AS e LEFT JOIN teams AS t
 ON e.team_id = t.id
 GROUP BY t.id  
---AND t.id 
+ 
 --MVP
---Q4(b)
+--Q4(b)The total_day_charge of a team is defined as the charge_cost of the team multiplied by 
+--the number of employees in the team. Calculate the total_day_charge for each team. 
+ 
+SELECT 
+	--e.team_id, 
+	t.id AS team_ID,
+	t.charge_cost, 
+	t.name,
+	CAST(charge_cost AS INT) * Count(e.id) AS total_day_charge, 
+	COUNT(e.id) AS total_employees
+	
+FROM employees AS e LEFT JOIN teams AS t
+ON e.team_id = t.id
+GROUP BY t.id 
 
 --MVP
---Q4(c)
-
+--Q4(c) How would you amend your query from above to show only those 
+--teams with a total_day_charge greater than 5000? 
+SELECT 
+	--e.team_id, 
+	t.id AS team_ID,
+	t.charge_cost, 
+	t.name,
+	CAST(charge_cost AS INT) * Count(e.id) AS total_day_charge, 
+	COUNT(e.id) AS total_employees
+	
+FROM employees AS e LEFT JOIN teams AS t
+ON e.team_id = t.id
+GROUP BY t.id 
+HAVING CAST(charge_cost AS INT) * Count(e.id) > 5000
+--WHERE total_day_charge > 8000
 --EXTENSION 
 --Q1
 
