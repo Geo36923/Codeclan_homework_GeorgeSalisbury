@@ -85,9 +85,14 @@ ORDER BY sum_employees ASC
 --MVP
 --Q4(a)
 SELECT 
-	team_id 
-	
-FROM employees AS e RIGHT JOIN teams AS t
+	--e.team_id, 
+	t.id AS team_ID,
+	t.name,
+	COUNT(e.id) AS total_employees	
+FROM employees AS e LEFT JOIN teams AS t
+ON e.team_id = t.id
+GROUP BY t.id  
+--AND t.id 
 --MVP
 --Q4(b)
 
