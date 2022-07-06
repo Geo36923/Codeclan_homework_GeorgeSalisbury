@@ -129,10 +129,18 @@ HAVING CAST(charge_cost AS INT) * Count(e.id) > 5000
 --EXTENSION 
 --Q1
 SELECT 
-DISTINCT committee_id   
-FROM employees_committees AS ec INNER JOIN
-
+	count(DISTINCT ec.employee_id) AS committee_employees
+	--DISTINCT committee_id	
+  
+FROM employees_committees AS ec INNER JOIN employees AS e
+ON ec.employee_id = e.id
 
 
 --EXTENSION 
 --Q2
+SELECT 
+	count(DISTINCT e.id) AS non_committee_employees
+	--DISTINCT committee_id	
+  
+FROM employees_committees AS ec FULL JOIN employees AS e
+ON ec.employee_id = e.id
