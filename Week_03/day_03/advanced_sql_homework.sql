@@ -168,20 +168,49 @@ FROM employees
 WHERE first_name IS NULL
 GROUP BY department
 HAVING count(id) > 2
-ORDER BY department ASC;
+ORDER BY count(id) DESC, department ASC;
 	
 --MVP
 --Q15 /*Return a table of those employee first_names shared by more than one employee, 
 --together with a count of the number of times each first_name occurs. Omit employees 
 --without a stored first_name from the table. Order the table descending by count, 
 --and then alphabetically by first_name */
-*/
+SELECT 
+	first_name,
+	count(id) AS num_of_names
+FROM employees 	
+GROUP BY first_name
+HAVING first_name IS NOT NULL AND count(id) > 1
+ORDER BY num_of_names DESC, first_name ASC;
 
 --MVP
 --Q16 (Tough) Find the proportion of employees in each department who are grade 1. 
-
+/*WITH grade_1_employees AS (
+	SELECT
+	id,
+	CAST(grade AS INT),
+	count(id) AS num_grade_1,
+	sum(grade = 1 / count(id)) * 100
+	FROM employees
+	WHERE grade = 1
+	GROUP BY department 
+	)*/
+SELECT 
+	department,
+	CAST(sum(grade) AS decimal/CAST(count(id) AS decimal) AS proportion_grade_one
+FROM employees 
+GROUP BY department 
 --EXT
---Q1
+--Q1 Get a list of the id, first_name, last_name, department, salary and fte_hours of employees in the largest 
+--department.  Add two extra columns showing the ratio of each employee’s salary to that 
+--department’s average salary, and each employee’s fte_hours to that department’s average fte_hours.
+SELECT
+	id,
+	first_name,
+	last_name,
+	department,
+	salary,
+	fte_hours 
 
 --EXT
 --Q2
