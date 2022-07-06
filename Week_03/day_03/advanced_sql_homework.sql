@@ -197,28 +197,86 @@ ORDER BY num_of_names DESC, first_name ASC;
 	)*/
 SELECT 
 	department,
-	CAST(sum(grade) AS decimal/CAST(count(id) AS decimal) AS proportion_grade_one
+	CAST(sum(grade) AS decimal)/CAST(count(id) AS decimal) AS proportion_grade_one
 FROM employees 
 GROUP BY department 
 --EXT
---Q1 Get a list of the id, first_name, last_name, department, salary and fte_hours of employees in the largest 
---department.  Add two extra columns showing the ratio of each employee’s salary to that 
+--Q1 Get a list of the id, first_name, last_name, department, salary and fte_hours of employees in the 
+--largest department.  Add two extra columns showing the ratio of each employee’s salary to that 
 --department’s average salary, and each employee’s fte_hours to that department’s average fte_hours.
-SELECT
-	id,
-	first_name,
+WITH largest_department AS (
+	SELECT
+		department,
+		count(id) AS num_employees,
+		avg(salary) AS avg_salary,
+		avg(fte_hours) AS avg_fte
+	FROM employees 
+	GROUP BY department 
+	ORDER BY num_employees DESC 
+	LIMIT 1
+)
+SELECT 
+	first_name, 
 	last_name,
 	department,
-	salary,
-	fte_hours 
+	salary/(SELECT avg_salary FROM largest_department) AS salary_ratio,
+	fte_hours/(SELECT avg_fte FROM largest_department) AS fte_ratio
+FROM employees 
+WHERE department = (SELECT department FROM largest_department)
+		/*first_name,
+		last_name,
+		department,
+		salary,
+		fte_hours,
+		avg(salary)
+		
+	FROM employees 	
+	ORDER BY salary DESC
+)*/
+--[Extension - really tough! - how could you generalise your query to be able to handle the fact that 
+--two or more departments may be tied in their counts of employees. In that case, we probably 
+--don’t want to arbitrarily return details for employees in just one of these departments]. 
 
 --EXT
---Q2
+-- Q2  Have a look again at your table for MVP question 6. It will likely contain a blank cell for the 
+-- row relating to employees with ‘unknown’ pension enrollment status. This is ambiguous: 
+-- it would be better if this cell contained ‘unknown’ or something similar. 
+-- Can you find a way to do this, perhaps using a combination of COALESCE() and CAST(), or a CASE statement?
+
+SELECT
+	COALESCE(CAST(pension_enrol AS VARCHAR), 'unknown') AS are_pension_enrolled,
+	count(id) AS num_employees 
+FROM employees 
+GROUP BY pension_enrol; 
+
+SELECT
+	CASE 	
+		WHEN pension_enrol IS TRUE THEN 'enrolled'
+		WHEN pension_enrol IS NULL THEN 'unknown'
+		WHEN pension_enrol IS FALSE THEN 'not enrolled'
+	END AS pension_enrolled,
+	count(id) AS num_employees
+FROM employees 
+GROUP BY pension_enrol; 
+	
+--EXT
+-- Q3 Find the first name, last name, email address and start date of all the employees 
+-- who are members of the ‘Equality and Diversity’ committee. 
+-- Order the member employees by their length of service in the company, longest first.
+SELECT 
+	e.first_name,
+	e.last_name,
+	e.email,
+	e.start_date
+FROM (employees AS e INNER JOIN employees_committees AS ec
+ON e.id = ec.employee_id) INNER JOIN committees AS c
+ON ec.committee_id = c.id
+WHERE c.name = 'Equality and Diversity'
+ORDER BY start_date ASC;
 
 --EXT
---Q3
-
---EXT
---Q4
+--Q4 Use a CASE() operator to group employees who are members of committees into salary_class of 'low' 
+-- (salary < 40000) or 'high' (salary >= 40000). A NULL salary should lead to 'none' in salary_class. 
+-- Count the number of committee members in each salary_class.
 
 
