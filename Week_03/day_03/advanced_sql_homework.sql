@@ -51,7 +51,7 @@ ORDER BY department ASC, fte_hours ASC
 -- not enrolled, and with unknown enrollment status in the corporation pension scheme.
 
 SELECT
-	pension_enrol, 
+	pension_enrol AS pension_enrolled, 
 	count(id) AS num_employees
 FROM employees 
 GROUP BY pension_enrol; 
@@ -126,8 +126,10 @@ SELECT
 	e.first_name,
 	e.last_name,
 	e.fte_hours,
+	e.salary,
+	t.name,
 	t.charge_cost,
-	(48 * 35 * CAST(charge_cost AS INT) - salary) * fte_hours AS expected_profit
+	(48 * 35 * CAST(charge_cost AS INT) - e.salary) * e.fte_hours AS expected_profit
 FROM employees AS e LEFT JOIN teams AS t 
 ON t.id = e.team_id 
 
@@ -168,7 +170,7 @@ FROM employees
 WHERE first_name IS NULL
 GROUP BY department
 HAVING count(id) > 2
-ORDER BY count(id) DESC, department ASC;
+ORDER BY count(id) DESC NULLS LAST, department ASC NULLS LAST;
 	
 --MVP
 --Q15 /*Return a table of those employee first_names shared by more than one employee, 
@@ -197,9 +199,14 @@ ORDER BY num_of_names DESC, first_name ASC;
 	)*/
 SELECT 
 	department,
-	CAST(sum(grade) AS decimal)/CAST(count(id) AS decimal) AS proportion_grade_one
+	SUM(CAST(grade = '1' AS int)/CAST(count(id) AS REAL) AS proportion_grade_one,
+	count(grade) / CAST(count(id) AS REAL) AS other_proportion_no_grade,
+	count(grade),
+	count(id),
+	sum(CAST(grade = '1' AS INT)) AS n_grade_1,
+	sum(CAST(grade = '0' AS INT)) AS n_grade_0
 FROM employees 
-GROUP BY department 
+GROUP BY department; 
 --EXT
 --Q1 Get a list of the id, first_name, last_name, department, salary and fte_hours of employees in the 
 --largest department.  Add two extra columns showing the ratio of each employee’s salary to that 
@@ -272,11 +279,64 @@ FROM (employees AS e INNER JOIN employees_committees AS ec
 ON e.id = ec.employee_id) INNER JOIN committees AS c
 ON ec.committee_id = c.id
 WHERE c.name = 'Equality and Diversity'
-ORDER BY start_date ASC;
+ORDER BY start_date ASC NULLS LAST;
 
 --EXT
 --Q4 Use a CASE() operator to group employees who are members of committees into salary_class of 'low' 
 -- (salary < 40000) or 'high' (salary >= 40000). A NULL salary should lead to 'none' in salary_class. 
 -- Count the number of committee members in each salary_class.
+--classnotes answer
+SELECT 
+  CASE 
+    WHEN e.salary < 40000 THEN 'low'
+    WHEN e.salary IS NULL THEN 'none'
+    ELSE 'high' 
+  END AS salary_class,
+  COUNT(DISTINCT(e.id)) AS num_committee_members
+FROM employees AS e INNER JOIN employees_committees AS ec
+ON e.id = ec.employee_id
+INNER JOIN committees AS c
+ON ec.committee_id = c.id
+GROUP BY salary_class
+/*
+ * Get a list of the id, first_name, last_name, department, salary and 
+ * fte_hours of employees in the smallest department. 
+ * Add two extra columns showing the ratio of each employee's 
+ * salary to that department's max salary, and each employee's fte_hours 
+ * to that department's max fte_hours.
+ */
 
+-- 1. Imagine the final table 
 
+-- id, first_name, last_name, department, salary, fte_hours,
+-- ratios_involving_department_averages
+
+-- 2. where do these columns come from?
+-- all from employees, but some will need to be derived
+-- the ratio columns need to be derived
+
+-- 3. we can derive in advance
+
+WITH dep_breakdown AS (
+	SELECT 
+		department,
+		max(fte_hours) AS max_fte_hours,
+		max(salary) AS max_salary,
+		count(id)
+	FROM employees
+	GROUP BY department
+	),
+	least_employees AS (
+	SELECT min(count) AS smallest_dep_size
+FROM dep_breakdown
+	)
+SELECT 
+	e.id,
+	e.first_name, e.last_name, e.department, e.salary, e.fte_hours,
+	e.fte_hours / dep.max_fte_hours,
+	CAST(e.salary AS float) / dep.max_salary
+FROM employees AS e
+LEFT JOIN dep_breakdown AS dep
+ON e.department = dep.department;
+
+SELECT 1;
