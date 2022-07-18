@@ -46,3 +46,20 @@ qb_competitors %>%
   geom_area()
 ```
 
+Q5
+```{r}
+qb_competitors %>% 
+  ggplot(aes(x = Year, y = Revenue, colour = Company)) +
+  geom_line() +
+  geom_point()
+```
+
+Q6
+```{r}
+qb_device_data %>% 
+  ggplot(aes(x = device, y= counts, fill = id)) +
+  geom_line() +
+  geom_point() +
+  facet_grid(device ~ id)
+```
+
