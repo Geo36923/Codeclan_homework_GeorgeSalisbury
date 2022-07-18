@@ -63,3 +63,7 @@ qb_device_data %>%
   facet_grid(device ~ id)
 ```
 
+```{r}
+
+```
+
