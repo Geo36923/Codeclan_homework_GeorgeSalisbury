@@ -35,12 +35,14 @@ qb_monthly_sales %>%
   filter(Date > "2019-01-01") %>% 
   filter(Cashflow == "Total Revenue", Cashflow == "Cost") %>% 
   ggplot(aes(x = Date, y = Amount, colour = Cashflow)) +
-  geom_line() #+
-  #geom_point()
+  geom_line() +
+  geom_point()
 
 ```
 Q4
 ```{r}
-
+qb_competitors %>% 
+  ggplot(aes(x = Year, y = Revenue, colour = Company)) +
+  geom_area()
 ```
 
