@@ -4,7 +4,26 @@ library(CodeClanData)
 library(janitor)
 library(assertr)
 library(readr)
+library(ggplot2)
 ```
+
+```{r}
+library(ggplot2)
+
+# Create Data
+data <- data.frame(
+  group=LETTERS[1:5],
+  value=c(13,7,9,21,2)
+)
+
+# Basic piechart
+ggplot(data, aes(x="", y=value, fill=group)) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y", start=0) +
+  
+  theme_void()
+```
+
 Q1
 ```{r}
 backpack
@@ -56,9 +75,9 @@ backpack_M <- backpack %>%
 Q6: Pie chart for proportion
 ```{r}
 backpack %>% 
-  ggplot(aes(x = back_problems, y = major, fill = ratio)) +
-  geom_col(stat = "identity", width = 1) +
-  coord_polar("y", start=0) 
+  ggplot(aes(x = back_problems, y = major)) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y", start=0)
 
 ```
 
