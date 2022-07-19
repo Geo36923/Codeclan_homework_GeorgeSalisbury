@@ -57,8 +57,8 @@ Q6: Pie chart for proportion
 ```{r}
 backpack %>% 
   ggplot(aes(x = back_problems, y = major, fill = ratio)) +
-  geom_col()
-  coord_polar("y", start=0)
+  geom_col(stat = "identity", width = 1) +
+  coord_polar("y", start=0) 
 
 ```
 
