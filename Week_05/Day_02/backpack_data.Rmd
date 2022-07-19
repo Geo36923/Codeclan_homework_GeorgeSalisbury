@@ -1,0 +1,22 @@
+```{r}
+library(tidyverse)
+library(CodeClanData)
+library(janitor)
+library(assertr)
+library(readr)
+```
+Q1
+```{r}
+backpack
+dim(backpack)
+names(backpack)
+head(backpack)
+tail(backpack)
+sum(is.na(backpack))
+```
+Q2
+```{r}
+backpack %>% 
+  ggplot(aes())
+```
+
