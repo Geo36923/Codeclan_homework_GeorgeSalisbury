@@ -24,9 +24,25 @@ Q3
 ```{r}
 Backpack_weights <- backpack %>% 
   group_by(sex) %>% 
-  summarise(mean_weight = sum(backpack_weight))
+  summarise(mean_weight = mean(backpack_weight))
 
 ggplot(Backpack_weights, aes(x = sex, y = mean_weight)) +
   geom_col()
+```
+
+Q4: Correlation between body weight and backpack weight
+```{r}
+backpack %>% 
+  ggplot(aes(x = year, y = backpack_weight, fill = body_weight)) +
+  geom_col() +
+  labs(x = "Year", y = "Backpack weight")
+```
+Q5: Correlation of body weight and backpack weight between genders
+```{r}
+backpack %>% 
+  group_by(sex) %>% 
+  ggplot(aes(x = year, y = backpack_weight, fill = body_weight)) +
+  geom_col() +
+  labs(x = "Year", y = "Backpack weight")
 ```
 
