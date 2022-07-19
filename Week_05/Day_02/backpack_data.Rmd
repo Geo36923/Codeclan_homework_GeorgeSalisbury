@@ -17,6 +17,16 @@ sum(is.na(backpack))
 Q2
 ```{r}
 backpack %>% 
-  ggplot(aes())
+  ggplot(aes(x = year, y = backpack_weight, colour = major)) +
+  geom_point()
+```
+Q3
+```{r}
+Backpack_weights <- backpack %>% 
+  group_by(sex) %>% 
+  summarise(mean_weight = sum(backpack_weight))
+
+ggplot(Backpack_weights, aes(x = sex, y = mean_weight)) +
+  geom_col()
 ```
 
