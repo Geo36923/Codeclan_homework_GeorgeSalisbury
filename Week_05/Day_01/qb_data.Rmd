@@ -18,31 +18,30 @@ ggplot(qb_revenue_breakdown,
        aes(x = Year,
            y = Revenue,
                          fill = Product)) +
-  geom_bar(stat = "identity")
+  geom_col(stat = "identity")
 ```
 Q2
 ```{r}
 qb_monthly_sales %>% 
   filter(Cashflow == "Kwikbit Unit 1 Sales") %>% 
   ggplot(aes(x = Date, y = Amount, colour = Cashflow)) +
-  geom_line() +
-  geom_point()
+  geom_line() #
 
 ```
 Q3
 ```{r}
 qb_monthly_sales %>% 
-  filter(Date > "2019-01-01") %>% 
-  filter(Cashflow == "Total Revenue", Cashflow == "Cost") %>% 
+  #filter(Date > "2019-01-01") %>% 
+  filter(Cashflow != "Kwikbit Unit 1 Sales") %>% 
   ggplot(aes(x = Date, y = Amount, colour = Cashflow)) +
-  geom_line() +
-  geom_point()
+  geom_line()
 
 ```
 Q4
 ```{r}
+options(scipen = 999)
 qb_competitors %>% 
-  ggplot(aes(x = Year, y = Revenue, colour = Company)) +
+  ggplot(aes(x = Year, y = Revenue, fill = Company)) +
   geom_area()
 ```
 
@@ -56,14 +55,17 @@ qb_competitors %>%
 
 Q6
 ```{r}
+qb_device_data <- 
+mutate(qb_device_data, decimal_hour = hours + (mins/60))
+
 qb_device_data %>% 
-  ggplot(aes(x = device, y= counts, fill = id)) +
+  ggplot(aes(x = decimal_hour, y = counts)) +
   geom_line() +
-  geom_point() +
-  facet_grid(device ~ id)
+  facet_grid(id ~ device) +
+  scale_colour_manual(values = rainbow(8)) 
 ```
 
 ```{r}
-
+col_scheme <- c("#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", " 	#FF0000")
 ```
 

@@ -1,0 +1,104 @@
+```{r}
+library(tidyverse)
+library(CodeClanData)
+library(janitor)
+library(assertr)
+
+```
+
+```{r}
+total_sales
+```
+
+```{r}
+ggplot(total_sales, aes(y = branch, x = sales, 
+                        fill = branch == 'Leeds')) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c('grey40', 'red')) 
+  
+  
+```
+
+```{r}
+total_sales_annotate <- total_sales %>% 
+  mutate(label_text = if_else(branch == 'Leeds',
+                              'The Leeds branch has 715k sales',
+                              NA_character_))
+ggplot(total_sales_annotate, aes(y = branch, x = sales, 
+                        fill = branch == 'Leeds')) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c('grey40', 'red')) +
+  geom_text(aes(label = label_text),
+            colour = 'red', size = 4, hjust = 0)
+```
+
+```{r}
+monthly_sales <- read_csv('data/monthly_sales.csv') %>%
+  mutate(month = factor(month, levels = c("Jan", "Feb", "March", "April"))) 
+
+head(monthly_sales)
+
+ggplot(monthly_sales) +
+  aes(x = branch, y = sales, fill = month) +
+  geom_col(position = "dodge") +
+  coord_flip()
+```
+```{r}
+ggplot(total_sales) +
+  aes(x = reorder(branch, - sales), y = sales) +
+  geom_col() +
+  coord_flip()
+```
+
+```{r}
+monthly_sales %>% 
+  mutate(month = factor(month, levels = c("January", "February", "March", "April"))) #%>% 
+  #mutate(label_text = if_else(branch == "Glasgow", "The Glasgow branch has 670k sales"))
+
+ggplot(monthly_sales) +
+  aes(x = branch, y = sales, fill = month) +
+  geom_col(show.legend = TRUE) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90))
+  
+```
+
+```{r}
+monthly_sales_april <- monthly_sales %>% 
+  filter(month == "April")
+
+min_max <- max(abs(monthly_sales_april$difference_from_jan))
+
+ggplot(monthly_sales_april, 
+       aes(x = reorder(branch, - sales),
+           y = sales)) +
+  geom_col() + 
+  coord_flip()
+  
+```
+
+```{r}
+monthly_sales_april <- monthly_sales %>% 
+  filter(month == "April")
+
+min_max <- max(abs(monthly_sales_april$difference_from_jan))
+
+ggplot(monthly_sales_april, 
+       aes(x = reorder(branch, difference_from_jan),
+           y = difference_from_jan,
+           fill = difference_from_jan > 0)) +
+  geom_col() + 
+  coord_flip() +
+  labs(y = "Difference in sales",
+       x = "Branch location") +
+  scale_fill_manual(values = c('tomato', 'seagreen'),
+                    name = '',
+                    labels = c('decrease', 'increase')) +
+  theme_minimal()
+  
+```
+
+```{r}
+
+```
+
