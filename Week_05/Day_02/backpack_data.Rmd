@@ -39,10 +39,26 @@ backpack %>%
 ```
 Q5: Correlation of body weight and backpack weight between genders
 ```{r}
-backpack %>% 
-  group_by(sex) %>% 
-  ggplot(aes(x = year, y = backpack_weight, fill = body_weight)) +
+backpack_F <- backpack %>% 
+  filter(sex == "Female")
+
+backpack_M <- backpack %>% 
+  filter(sex == "Male")
+ 
+  ggplot(backpack_F, aes(x = year, y = backpack_weight, fill = body_weight)) +
   geom_col() +
   labs(x = "Year", y = "Backpack weight")
+  
+  ggplot(backpack_M, aes(x = year, y = backpack_weight, fill = body_weight)) +
+  geom_col() +
+  labs(x = "Year", y = "Backpack weight")
+```
+Q6: Pie chart for proportion
+```{r}
+backpack %>% 
+  ggplot(aes(x = back_problems, y = major, fill = ratio)) +
+  geom_col()
+  coord_polar("y", start=0)
+
 ```
 
