@@ -34,7 +34,7 @@ tail(backpack)
 glimpse(backpack)
 sum(is.na(backpack))
 ```
-The purpose of this point plot is to show the distribution of the weight that students are carrying per school year.  
+The purpose of this histogram is to show the distribution of the weight that students are carrying by showing the number of backpacks against the weight of the backpacks.  
 Q2
 ```{r}
 backpack %>% 
@@ -44,7 +44,7 @@ backpack %>%
                    labs(y = "number of backpacks", x = "weight")
                    
 ```
-
+The purpose of this histogram is to show the backpack weight distribution by gender.
 Q3
 ```{r}
 # Backpack_weights <- backpack %>% 
@@ -57,7 +57,8 @@ ggplot(backpack, aes(x = backpack_weight, fill = sex)) +
   geom_histogram(bins = 20, col = "white", show.legend = FALSE) +
   theme_light() +
   labs(y = "number of backpacks", x = "weight") +
-  facet_wrap(~ sex, nrow = 2)
+  facet_wrap(~ sex, nrow = 2) +
+  coord_flip()
 
 ```
 
@@ -70,7 +71,7 @@ ggplot(backpack) +
   labs(y = "number of backpacks", x = "weight") + 
   facet_wrap(~ sex, nrow = 2)
 ```
-
+The purpose of this graph is to show a relationship between the body weight of a person and the weight of their backpack.
 
 Q4: Correlation between body weight and backpack weight
 ```{r}
@@ -79,9 +80,14 @@ backpack %>%
   geom_point() +
   labs(x = "Body Weight", y = "Backpack weight")
 ```
-
+Classnotes Q5
 ```{r}
-
+ggplot(backpack) + 
+  aes(x = body_weight, y = backpack_weight, color = sex) + 
+  geom_point() + 
+  facet_wrap(~sex) + 
+    scale_color_manual(values=c('#E69F00', '#56B4E9'))+
+    labs(x = "body weight", y = "backpack weight")
 ```
 
 Q5: Correlation of body weight and backpack weight between genders
