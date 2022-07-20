@@ -23,7 +23,7 @@ ggplot(data, aes(x="", y=value, fill=group)) +
   
   theme_void()
 ```
-
+The purpose of this code chunk to quickly inspect the backpack data and to familiarise oneself with it prior to solving the Analysis questions with it.
 Q1
 ```{r}
 backpack
@@ -31,8 +31,10 @@ dim(backpack)
 names(backpack)
 head(backpack)
 tail(backpack)
+glimpse(backpack)
 sum(is.na(backpack))
 ```
+The purpose of this point plot is to show the distribution of the weight that students are carrying per school year.  
 Q2
 ```{r}
 backpack %>% 
