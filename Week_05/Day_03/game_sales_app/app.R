@@ -65,7 +65,7 @@ server <- function(input, output, session) {
                                    "X360" = "dark green",
                                    "XOne" = "dark red")) +
       theme_minimal()
-  )
+  
   
 }
 # Run the application 
