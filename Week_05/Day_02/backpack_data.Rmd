@@ -41,6 +41,7 @@ backpack %>%
   ggplot(aes(x = year, y = backpack_weight, colour = major)) +
   geom_point()
 ```
+The purpose of this graph is to show the mean backpack weight for both sexes to identify any discernable difference.
 Q3
 ```{r}
 Backpack_weights <- backpack %>% 
