@@ -34,22 +34,18 @@ tabPanel("Plot",
 
         )
     )
-)
+
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
   output$game_plot <- renderPlot(
     game_sales %>%
-      filter(platform %in% c("Wii Sports",
-                         "Soviet Union",
-                          "Germany",
-                          "Italy",
-                          "Great Britain")) %>%
+      filter(name == input$name)) %>%
       filter(genre == input$genre) %>%
       filter(console == input$platform) %>%
-      mutate(overall_sales = sum(sales %in% platform)) %>% 
+      #mutate(overall_sales = sum(sales %in% platform)) %>% 
       ggplot() +
-      aes(x = platform, y = overall_sales, fill = platform) +
+      aes(x = title, y = sales, fill = platform) +
       geom_histogram(bars = 30, show.legend = "none") +
       xlab("console")+
       ylab("sales")+
