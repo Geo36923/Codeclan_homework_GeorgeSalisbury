@@ -38,27 +38,52 @@ The purpose of this point plot is to show the distribution of the weight that st
 Q2
 ```{r}
 backpack %>% 
-  ggplot(aes(x = year, y = backpack_weight, colour = major)) +
-  geom_point()
+  ggplot(aes(x =backpack_weight)) +
+  geom_histogram(bins = 20, col = "white", fill = "dark green") +
+                   theme_light() +
+                   labs(y = "number of backpacks", x = "weight")
+                   
 ```
-The purpose of this graph is to show the mean backpack weight for both sexes to identify any discernable difference.
+
 Q3
 ```{r}
-Backpack_weights <- backpack %>% 
-  group_by(sex) %>% 
-  summarise(mean_weight = mean(backpack_weight))
+# Backpack_weights <- backpack %>% 
+#   group_by(sex) %>% 
+#   summarise(mean_weight = mean(backpack_weight))
 
-ggplot(Backpack_weights, aes(x = sex, y = mean_weight)) +
-  geom_col()
+ggplot(backpack, aes(x = backpack_weight, fill = sex)) +
+  scale_fill_manual(values = c("green", "blue")) +
+  
+  geom_histogram(bins = 20, col = "white", show.legend = FALSE) +
+  theme_light() +
+  labs(y = "number of backpacks", x = "weight") +
+  facet_wrap(~ sex, nrow = 2)
+
 ```
+
+```{r}
+ggplot(backpack) +
+  aes(x = backpack_weight, fill = sex) +
+  scale_fill_manual(values=c('#E69F00', '#56B4E9')) +
+  geom_histogram(bins = 20, col = "white", show.legend = FALSE) + 
+  theme_light() + 
+  labs(y = "number of backpacks", x = "weight") + 
+  facet_wrap(~ sex, nrow = 2)
+```
+
 
 Q4: Correlation between body weight and backpack weight
 ```{r}
 backpack %>% 
-  ggplot(aes(x = year, y = backpack_weight, fill = body_weight)) +
-  geom_col() +
-  labs(x = "Year", y = "Backpack weight")
+  ggplot(aes(x = body_weight, y = backpack_weight)) +
+  geom_point() +
+  labs(x = "Body Weight", y = "Backpack weight")
 ```
+
+```{r}
+
+```
+
 Q5: Correlation of body weight and backpack weight between genders
 ```{r}
 backpack_F <- backpack %>% 
@@ -75,6 +100,16 @@ backpack_M <- backpack %>%
   geom_col() +
   labs(x = "Year", y = "Backpack weight")
 ```
+
+```{r}
+ggplot(backpack) + 
+  aes(x = body_weight, y = backpack_weight, color = sex) + 
+  geom_point() + 
+  facet_wrap(~sex) + 
+    scale_color_manual(values=c('#E69F00', '#56B4E9'))+
+    labs(x = "body weight", y = "backpack weight")
+```
+
 Q6: Pie chart for proportion
 ```{r}
 backpack %>% 
@@ -82,5 +117,79 @@ backpack %>%
   geom_bar(stat = "identity", width = 1, color = "white") +
   coord_polar("y", start = 0)
 
+```
+
+```{r}
+backpack <- backpack %>%
+  mutate(backpain_labelled = recode(back_problems, 
+                       "0" = "No", 
+                       "1" = "Yes"))
+
+ggplot(backpack) + 
+  aes(x = backpain_labelled, fill = backpain_labelled) + 
+  geom_bar() +
+ylim(0,100) + 
+  labs(x = "backpain reported", y = "student count") +
+    scale_fill_manual(values=c('#f0ca41', '#5022bd'))+
+theme(legend.position = "none")
+```
+Q7
+```{r}
+ggplot(backpack) + 
+  aes(x = backpain_labelled, fill = backpain_labelled) + 
+  geom_bar() +
+  labs(x = "backpain reported", y = "student count") + 
+  facet_wrap(~sex) +
+      scale_fill_manual(values=c('#f0ca41', '#5022bd'))+
+theme(legend.position = "none")
+```
+Q8
+```{r}
+pain_labels <- c("backpain: no", "backpain: yes")
+names(pain_labels) <- c("No", "Yes")
+
+sex_labels <- c("sex: female", "sex: male")
+names(sex_labels) <- c("Female", "Male")
+
+
+ggplot(backpack) + 
+  aes(x = body_weight, y = backpack_weight, color = backpain_labelled) + 
+  geom_point() + 
+  facet_grid(sex ~ backpain_labelled, 
+             labeller = labeller(backpain_labelled = pain_labels, sex = sex_labels)) + 
+  labs(x = "\n body weight", y = "backpack weight \n") +
+      scale_color_manual(values=c('#f0ca41', '#5022bd'))+
+theme(legend.position = "none")
+
+ggplot(backpack) + 
+  geom_histogram(aes(x = ratio, fill = backpain_labelled), bins = 20, col = "white") + 
+  facet_grid(sex ~ backpain_labelled, 
+             labeller = labeller(backpain_labelled = pain_labels, sex = sex_labels)) + 
+  labs(x = "\n body weight: backpack weight ratio") +
+      scale_fill_manual(values=c('#f0ca41', '#5022bd'))+
+theme(legend.position = "none")
+```
+
+Extension 1
+```{r}
+subset_backpacks <- backpack %>%
+  filter(year >0) 
+
+# look at the years
+ggplot(subset_backpacks) +
+  geom_bar(aes(x=year, fill = backpain_labelled)) + 
+  facet_wrap(~backpain_labelled, labeller = "label_both") +
+      scale_fill_manual(values=c('#f0ca41', '#5022bd'))+
+theme(legend.position = "none")
+```
+
+Extension 2
+```{r}
+ggplot(subset_backpacks)+
+  geom_bar(aes(x=backpack_weight)) + 
+  facet_wrap(~year, ncol = 3) + 
+  xlab("backpack weights")
+
+#dev.off()
 ```
 
