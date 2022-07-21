@@ -35,7 +35,8 @@ tabPanel("Plot",
         )
     )
 
-# The purpose of this graph is to show the varying sales of games narrowed down by the console and the genre
+# The purpose of this graph is to show the varying sales of games narrowed 
+# down by the console and the genre
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
   output$game_plot <- renderPlot(
