@@ -46,7 +46,7 @@ server <- function(input, output, session) {
       #mutate(overall_sales = sum(sales %in% platform)) %>% 
       ggplot() +
       aes(x = title, y = sales, fill = platform) +
-      geom_histogram(bars = 30, show.legend = "none") +
+      geom_histogram(bars = 30, col = "white") +
       xlab("console")+
       ylab("sales")+
       scale_fill_manual(values = c("3DS" = "red", 
