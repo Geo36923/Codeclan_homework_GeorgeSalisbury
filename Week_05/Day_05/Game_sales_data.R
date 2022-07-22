@@ -49,7 +49,7 @@ server <- function(input, output, session) {
     game_sales %>% 
       ggplot()+
       aes(x = console, y = sales, fill = genre) +
-      
+      ggcol()
   }
     
   )
