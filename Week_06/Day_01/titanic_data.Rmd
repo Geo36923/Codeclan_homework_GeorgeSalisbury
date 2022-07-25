@@ -1,0 +1,48 @@
+```{r}
+library(prob)
+library(tidyverse)
+library(bslib)
+library(janitor)
+library(gtools)
+library(data.table)
+```
+
+```{r}
+titanic <- read_csv('data/titanic.csv')
+```
+
+```{r}
+glimpse(titanic)
+```
+```{r}
+distinct(titanic)
+sum(is.na(titanic))
+
+```
+```{r}
+
+```
+
+
+```{r}
+survival_pass <- titanic %>% 
+  filter(survived == "yes")
+
+total_survival <- nrow(survival_pass) / nrow(titanic)
+```
+
+```{r}
+survival_crew <- titanic %>% 
+  filter(survived == "yes") %>% 
+  summarise(crew = unique(age))
+
+crew_survive <- nrow(survival_crew) / nrow(titanic)
+
+```
+
+```{r}
+dice <- rolldie(1) 
+
+roll_under_five <- dice %>% 
+```
+
