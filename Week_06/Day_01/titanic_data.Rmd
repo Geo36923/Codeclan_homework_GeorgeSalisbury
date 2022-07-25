@@ -43,6 +43,36 @@ crew_survive <- nrow(survival_crew) / nrow(titanic)
 ```{r}
 dice <- rolldie(1) 
 
-roll_under_five <- dice %>% 
+roll_under_five <- dice %>%
+  filter(X1 < 5)
+
+prob_under_five <- nrow(roll_under_five) / nrow(dice)
+```
+
+```{r}
+three_dice <- rolldie(3)
+
+nrow(three_dice)
+```
+
+```{r}
+four_dice <- rolldie(4)
+
+certain_dice <- four_dice %>% 
+  filter(rowSums(5) == 5, X1 + X2 + X3 + X4 == 6, X1 + X2 + X3 + X4 == 7)
+
+prob_certain <- nrow(certain_dice) / nrow(four_dice)
+```
+
+```{r}
+six_dice <- rolldie(6)
+
+ordered_dice <- six_dice %>% 
+  filter(isin(c(6, 5, 4, 3, 2, 1), ordered = TRUE))
+unordered_dice <- six_dice %>% 
+  filter(isin(c(6, 5, 4, 3, 2, 1), ordered = FALSE))
+
+distinct_dice <- six_dice %>% 
+  distinct(six_dice)
 ```
 
