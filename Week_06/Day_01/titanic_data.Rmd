@@ -59,7 +59,7 @@ nrow(three_dice)
 four_dice <- rolldie(4)
 
 certain_dice <- four_dice %>% 
-  filter(rowSums(5) == 5, X1 + X2 + X3 + X4 == 6, X1 + X2 + X3 + X4 == 7)
+  filter(X1 + X2 + X3 + X4 == 5, X1 + X2 + X3 + X4 == 6, X1 + X2 + X3 + X4 == 7)
 
 prob_certain <- nrow(certain_dice) / nrow(four_dice)
 ```
