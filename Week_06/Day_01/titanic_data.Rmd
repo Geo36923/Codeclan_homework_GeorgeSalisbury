@@ -43,6 +43,17 @@ titanic %>%
 ```
 
 ```{r}
+titanic %>% 
+  count(class)
+
+titanic <- titanic %>% 
+  mutate(crew = class %in% c("engineering crew", "victualling crew", "restaurant staff", "deck crew"))
+
+titanic %>% 
+  count(crew)
+```
+
+```{r}
 titanic_probs <- titanic %>%
   group_by(crew) %>%
   summarise(prob = sum(survived == "yes") / n()) 
@@ -59,7 +70,7 @@ titanic_probs %>%
 ```{r}
 survival_crew <- titanic %>% 
   filter(survived == "yes") %>% 
-  summarise(crew = unique(age))
+  summarise(crew = unique(class))
 
 crew_survive <- nrow(survival_crew) / nrow(titanic)
 
@@ -143,3 +154,16 @@ prob <- nrow(contains_654321) / nrow(six_rolls)
 prob
 
 ```
+
+```{r}
+titanic_crew <- titanic %>% 
+  mutate(is_crew = !(class %in% c("1st", "2nd", "3rd")))
+```
+
+```{r}
+prob_crew <- titanic_crew %>% 
+  group_by(is_crew, survived) %>% 
+  summarise(joint_prob = n() / sum(titanic_crew$is_crew))
+  
+```
+
