@@ -32,6 +32,31 @@ total_survival <- nrow(survival_pass) / nrow(titanic)
 ```
 
 ```{r}
+titanic %>%
+  count(class)
+
+titanic <- titanic %>%
+  mutate(crew = class %in% c("engineering crew", "victualling crew", "restaurant staff", "deck crew"))
+
+titanic %>%
+  count(crew)
+```
+
+```{r}
+titanic_probs <- titanic %>%
+  group_by(crew) %>%
+  summarise(prob = sum(survived == "yes") / n()) 
+
+titanic_probs
+
+titanic_probs %>%
+  filter(crew == TRUE)
+
+titanic_probs %>%
+  filter(crew == FALSE)
+```
+
+```{r}
 survival_crew <- titanic %>% 
   filter(survived == "yes") %>% 
   summarise(crew = unique(age))
@@ -39,7 +64,7 @@ survival_crew <- titanic %>%
 crew_survive <- nrow(survival_crew) / nrow(titanic)
 
 ```
-
+Q1
 ```{r}
 dice <- rolldie(1) 
 
@@ -53,6 +78,10 @@ prob_under_five <- nrow(roll_under_five) / nrow(dice)
 three_dice <- rolldie(3)
 
 nrow(three_dice)
+count_rule <- 6 * 6 * 6
+
+three_rolls <- nrow(rolldie(3))
+three_rolls 
 ```
 
 ```{r}
@@ -62,6 +91,21 @@ certain_dice <- four_dice %>%
   filter(X1 + X2 + X3 + X4 == 5, X1 + X2 + X3 + X4 == 6, X1 + X2 + X3 + X4 == 7)
 
 prob_certain <- nrow(certain_dice) / nrow(four_dice)
+```
+
+```{r}
+four_rolls <- rolldie(4)
+
+four_rolls <- four_rolls %>%
+  mutate(total = rowSums(.))
+
+total_between_5_7 <- four_rolls %>%
+  filter(total %in% c(5, 6, 7))
+
+nrow(total_between_5_7)
+
+prob <-nrow(total_between_5_7) / nrow(four_rolls)
+prob
 ```
 
 ```{r}
@@ -76,3 +120,26 @@ distinct_dice <- six_dice %>%
   distinct(six_dice)
 ```
 
+```{r}
+six_rolls <- rolldie(6)
+
+# what is the probability I see the numbers 6, 5, 4, 3, 2 and 1 in order on the dice, left to right?
+prob <- 1 / nrow(six_rolls)
+prob
+
+# or 'mathematically': there are 6^6 outcomes on roll of six dice, of which only one is correct
+prob <- 1 / 6^6
+prob
+```
+
+```{r}
+# what is the probability I see one each of the numbers 6, 5, 4, 3, 2 and 1 on the dice regardless of order?
+
+# row must contain 6, 5,..., 1, but can occur in any order
+contains_654321 <- six_rolls %>%
+  filter(isin(., c(6, 5, 4, 3, 2, 1), ordered = FALSE))
+
+prob <- nrow(contains_654321) / nrow(six_rolls)
+prob
+
+```
