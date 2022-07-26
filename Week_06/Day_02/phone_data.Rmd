@@ -35,6 +35,7 @@ get_mode <- function(x){
 
 get_mode(phone_data$brand)
 ```
+
 ```{r}
 phone_data2 <- phone_data %>% 
   # select(brand) %>% 
@@ -45,6 +46,10 @@ phone_data2 <- phone_data %>%
 Q3
 # For this question, I must plot the distribution of the top ratings for Samsung, and see if the normal distribution gives an accurate idea of how the ratings are spread out.  
 ```{r}
+```
+
+
+```{r}
 rating_stats <- phone_data %>% 
   filter(brand == "Samsung") %>% 
   summarise(num = n(),
@@ -52,11 +57,15 @@ rating_stats <- phone_data %>%
             sd = sd(rating))
 
 rating_stats
+```
+
+
+```{r}
 phone_data %>% 
   filter(brand == "Samsung") %>% 
   ggplot(aes(x = title)) +
   geom_histogram(aes(y = ..count..), col = "white",
-                 bins = 35) +
+                 bins = 50) +
   stat_function(
     fun = dnorm,
     args = list(
