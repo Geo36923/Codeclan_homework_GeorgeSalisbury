@@ -112,5 +112,36 @@ new_ames_95 <- mean_ames %>%
     upper_bound = quantile(mean_lot, probs = 1 - threshold)
   )
 new_ames_95 
+
+infer_ames2 <- mean_ames %>% 
+  get_ci(level = 0.95, type = "percentile")
+
+mean_ames %>% 
+  visualise(bins = 40) %>% 
+  shade_ci(endpoints = infer_ames2)
+```
+
+```{r}
+threshold <- 0.01
+new_ames_95 <- mean_ames %>% 
+  summarize(
+    mean = mean(lot_area),
+    lower_bound = quantile(mean_lot, probs = threshold),
+    upper_bound = quantile(mean_lot, probs = 1 - threshold)
+  )
+new_ames_95 
+
+infer_ames3 <- mean_ames %>% 
+  get_ci(level = 0.99, type = "percentile")
+
+mean_ames %>% 
+  visualise(bins = 40) %>% 
+  shade_ci(endpoints = infer_ames3)
+```
+
+Q6
+```{r}
+point_estimate_ames <- mean_ames %>% 
+  mean(mean_lot, na.rm = TRUE)
 ```
 
