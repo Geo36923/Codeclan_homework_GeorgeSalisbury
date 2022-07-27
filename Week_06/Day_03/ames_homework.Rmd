@@ -1,0 +1,80 @@
+```{r}
+library(prob)
+library(tidyverse)
+library(janitor)
+library(fastGraph)
+library(infer)
+library(e1071)
+```
+Q1
+```{r}
+ames_data <- read_csv('data/ames.csv') %>% 
+  clean_names()
+```
+Q2
+```{r}
+biggest_lots <- ames_data %>% 
+  # group_by(lot_area) %>%
+  # summarise(count = n()) %>%
+  arrange(desc(lot_area)) %>%
+  top_n(10)
+
+biggest_lots
+```
+```{r}
+ames_data %>% 
+  summarise(range_lot = max(lot_area) - min(lot_area))
+```
+
+
+```{r}
+ames_data %>% 
+  ggplot() +
+  aes(lot_area) +
+  geom_histogram(fill = "green", binwidth = 750)
+```
+
+```{r}
+ames_data %>% 
+  
+  group_by(order) %>%
+  summarise(
+    Q1 = quantile(lot_area, 0.25),
+    Q2 = quantile(lot_area, 0.5),
+    Q3 = quantile(lot_area, 0.75)
+  )
+```
+
+```{r}
+ames_stats <- ames_data %>% 
+  summarise(num = n(),
+            mean = mean(lot_area),
+            sd = sd(lot_area))
+ames_stats
+ames_ratings <- ames_data %>%
+  # filter(brand == "Samsung") %>%
+  select(lot_area)
+
+ames_ratings %>%
+  ggplot(aes(x = lot_area)) +
+  geom_histogram(aes(y = ..density..), col = "white") +
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = ames_stats$mean,
+      sd = ames_stats$sd
+    ),
+    col = "red"
+  )
+```
+Q3
+```{r}
+bootstrap_ames <- ames_data %>% 
+  specify(response = lot_area) %>% 
+  generate(reps = 5000, type = "bootstrap") %>% 
+  calculate(stat = "mean")
+  
+
+
+```
+
