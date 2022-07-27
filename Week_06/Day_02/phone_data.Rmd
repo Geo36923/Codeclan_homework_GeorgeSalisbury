@@ -37,6 +37,23 @@ get_mode(phone_data$brand)
 ```
 
 ```{r}
+top_brand <- phones %>%
+  group_by(brand) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count)) %>%
+  top_n(1)
+top_brand
+```
+```{r}
+top_brand <- phone_data %>% 
+  group_by(brand) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% 
+  top_n(1)
+top_brand
+```
+
+```{r}
 phone_data2 <- phone_data %>% 
   # select(brand) %>% 
   group_by(brand) %>% 
@@ -46,6 +63,29 @@ phone_data2 <- phone_data %>%
 Q3
 # For this question, I must plot the distribution of the top ratings for Samsung, and see if the normal distribution gives an accurate idea of how the ratings are spread out.  
 ```{r}
+samsung_ratings <- phone_data %>%
+  filter(brand == "Samsung") %>%
+  select(rating)
+samsung_stats <- phone_data %>%
+  filter(brand == "Samsung") %>%
+  summarise(
+    count = n(),
+    mean = mean(rating),
+    sd = sd(rating)
+  )
+samsung_stats
+
+samsung_ratings %>%
+  ggplot(aes(x = rating)) +
+  geom_histogram(aes(y = ..density..), col = "white") +
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = samsung_stats$mean,
+      sd = samsung_stats$sd
+    ),
+    col = "red"
+  )
 ```
 
 
@@ -82,5 +122,20 @@ samsung_ratings %>%
   filter(rating >= samsung_stats$mean - samsung_stats$sd) %>%
   filter(rating <= samsung_stats$mean + samsung_stats$sd) %>%
   summarise(prop_within_1sd = n() / nrow(samsung_ratings))
+```
+
+```{r}
+samsung_ratings %>%
+  filter(rating >= samsung_stats$mean - samsung_stats$sd) %>%
+  filter(rating <= samsung_stats$mean + samsung_stats$sd) %>%
+  summarise(prop_within_1sd = n() / nrow(samsung_ratings))
+samsung_ratings %>%
+  filter(rating >= samsung_stats$mean - 2 * samsung_stats$sd) %>%
+  filter(rating <= samsung_stats$mean + 2 * samsung_stats$sd) %>%
+  summarise(prop_within_2sd = n() / nrow(samsung_ratings))
+samsung_ratings %>%
+  filter(rating >= samsung_stats$mean - 3 * samsung_stats$sd) %>%
+  filter(rating <= samsung_stats$mean + 3 * samsung_stats$sd) %>%
+  summarise(prop_within_3sd = n() / nrow(samsung_ratings))
 ```
 
