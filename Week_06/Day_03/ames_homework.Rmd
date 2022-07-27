@@ -9,7 +9,8 @@ library(e1071)
 Q1
 ```{r}
 ames_data <- read_csv('data/ames.csv') %>% 
-  clean_names()
+  clean_names() %>% 
+  drop_na(lot_frontage)
 ```
 Q2
 ```{r}
@@ -67,14 +68,49 @@ ames_ratings %>%
     col = "red"
   )
 ```
+
+```{r}
+# ames_data
+ames_summary <- . %>% 
+  summarize(
+    mean_lot_area = mean(lot_area),
+    mean_frontage = mean(lot_frontage) 
+    
+  )
+```
+```{r}
+ames_data %>% 
+  ames_summary()
+```
+
 Q3
 ```{r}
-bootstrap_ames <- ames_data %>% 
+mean_ames <- ames_data %>% 
+  mutate(mean_lot = mean(lot_area))
+mean_ames
+bootstrap_ames <- mean_ames %>% 
   specify(response = lot_area) %>% 
   generate(reps = 5000, type = "bootstrap") %>% 
   calculate(stat = "mean")
   
+infer_ames <- mean_ames %>% 
+  get_ci(level = 0.95, type = "percentile")
 
+bootstrap_ames %>% 
+  visualize(bins = 40) + 
+  shade_ci(endpoints = infer_ames)
+  
 
+```
+
+```{r}
+threshold <- 0.05
+new_ames_95 <- mean_ames %>% 
+  summarize(
+    mean = mean(lot_area),
+    lower_bound = quantile(mean_lot, probs = threshold),
+    upper_bound = quantile(mean_lot, probs = 1 - threshold)
+  )
+new_ames_95 
 ```
 
