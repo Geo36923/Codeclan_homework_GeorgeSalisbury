@@ -50,7 +50,7 @@ Q3
 
 
 ```{r}
-rating_stats <- phone_data %>% 
+samsung_stats <- phone_data %>% 
   filter(brand == "Samsung") %>% 
   summarise(num = n(),
             mean = mean(rating),
@@ -75,8 +75,12 @@ phone_data %>%
     col = "red"
   )
 ```
-
+Q4
+# The purpose of this question is to investigate for datasets that deviate from the mean.
 ```{r}
-
+samsung_ratings %>%
+  filter(rating >= samsung_stats$mean - samsung_stats$sd) %>%
+  filter(rating <= samsung_stats$mean + samsung_stats$sd) %>%
+  summarise(prop_within_1sd = n() / nrow(samsung_ratings))
 ```
 
