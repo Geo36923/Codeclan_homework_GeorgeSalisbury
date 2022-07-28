@@ -7,16 +7,19 @@ library(infer)
 library(e1071)
 ```
 Q1
+# For this question, I just had to read in the data from the lab yesterday and read through it for new purposes.  If we had more time, the dataset could do with some extensive cleaning.
 ```{r}
 ames_data <- read_csv('data/ames.csv') %>% 
   clean_names() %>% 
   drop_na(lot_frontage)
 ```
 Q2
+# For this question, I had to investigate the distribution of the lot area.  From first impressions, the data appeared to be heavily right-skewed with values rarely exceeding 10,000.  I recycled some code from yesterday's lab to streamline the process. 
 ```{r}
 biggest_lots <- ames_data %>% 
   # group_by(lot_area) %>%
   # summarise(count = n()) %>%
+  
   arrange(desc(lot_area)) %>%
   top_n(10)
 
@@ -84,6 +87,7 @@ ames_data %>%
 ```
 
 Q3
+# For this question, I had to make a visualisation of the data for the mean of the lot_area.  I made a new variable to accommodate the visualisation, as well as a confidence interval for shading in unique areas.  From the interpretation I could see that the distribution was fairly even in a bell shape but had a very small confidence interval.
 ```{r}
 mean_ames <- ames_data %>% 
   mutate(mean_lot = mean(lot_area))
@@ -143,5 +147,10 @@ Q6
 ```{r}
 point_estimate_ames <- mean_ames %>% 
   mean(mean_lot, na.rm = TRUE)
+```
+
+Classnotes answers
+```{r}
+
 ```
 
