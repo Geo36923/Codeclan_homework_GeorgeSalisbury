@@ -42,9 +42,13 @@ sleep_stats <- msleep %>%
 sleep_stats %>% 
   summarise(diff_sleep = mean_sleep - jabberwocky_sleep)
 ```
+```{r}
+sample_sleep <- msleep
+```
 
 ```{r}
-threshold <- 0.95
+threshold <- 0.05
+ci_sleep <- 
 ```
 H_0: mean_sleep(omni) is significantly longer than mean_sleep(carni)
 H_a: mean_sleep(omni) is NOT significantly longer than mean_sleep(carni)
@@ -52,5 +56,11 @@ H_a: mean_sleep(omni) is NOT significantly longer than mean_sleep(carni)
 Average_sleep_omni <- msleep %>% 
   filter(vore == "omni") %>% 
   summarise(mean_sleep = mean(sleep_total))
+
+Average_sleep_carni <- msleep %>% 
+  filter(vore == "carni") %>% 
+  summarise(mean_sleep = mean(sleep_total))
+
+
 ```
 
