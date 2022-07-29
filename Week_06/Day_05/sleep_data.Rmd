@@ -72,10 +72,25 @@ Diff_in_sleep <- msleep %>%
 H_0: Proportion of domesticated animals in population is greater than 5%
 H_a: Proportion of domesticated animals in population is not greater than 5%
 ```{r}
-msleep %>% 
-   
+dom_animals <-  msleep %>% 
   mutate(is_domesticated = conservation == "domesticated")
-
-
+dom_stats <- dom_animals %>% 
+  specify(response = is_domesticated, success = )
 ```
 
+
+```{r}
+dom_distribution <- msleep %>% 
+  filter(conservation == "domesticated") %>% 
+  specify(response = conservation, success = "domesticated") %>%  
+  hypothesise(null = "point", p = 0.05) %>% 
+  generate(reps = 1000, type = "draw") %>% 
+  calculate(stat = "prop")
+```
+
+
+```{r}
+```
+
+Q1.2
+# 
