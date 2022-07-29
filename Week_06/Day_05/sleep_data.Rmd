@@ -94,7 +94,30 @@ dom_distribution <- dom_animals %>%
 
 
 ```{r}
+dom_animals %>% 
+  group_by(is_domesticated) %>% 
+  summarise(prop = n()/nrow(msleep)) %>% 
+  filter(is_domesticated == "TRUE")
+# H_0 is rejected.  The proportion of animals in the populated which are classified as domesticated is slightly over 12%, which is greater than 5%.  Ergo, the alternate hypothesis is proven correct.
 ```
 
-Q1.2
-# 
+Q1.2 "You work for a independent coffee shop. The boss tells you that she thinks that around 40% of people in the town (population 30,000) know of the coffee shop, but you are skeptical of the estimate. You conduct a random survey of 200 people in the town, asking if respondents are aware of your coffee shop. You want to use the sample to test the hypothesis that 40% or more of the town’s population have heard of the coffee shop."
+
+# 1. For this question, I would choose to measure the proportion of the population, since we are asking if 40% of the population has heard of this particular coffee shop.  The null hypothesis would be if 40% had heard of the coffee shop, the hypothesis would not be rejected.  If the number of people who had heard of the shop was not 40%, (less than or more than 40%), the hypothesis would not be true.  The method I would use to generate the null distribution would be bootstrap because I could use it to generate an easy-to-understand, informative visualisation of the data that would immediately give the coffee shop the answer that they're looking for.
+$$
+H_0:  \nu_{average \ reception \ coffee-shop} = 40%
+$$
+
+$$
+H_1:  \nu_{average \ reception \ coffee-shop}  != 40
+$$
+# 2. For this question, which involves testing two data samples to look for the sample that performs better overall in terms of user reception, I would go for two-sample testing method.  The two samples are independent from each other because they whilst they are designed for the same purpose, they involve different promotional methods to convey their message.  The test would involve confidence intervals to ensure that we have concrete evidence of which sample is more popular with users.  I would also use a proportion method to determine the better click-through-rate and response to the samples.  The method I would use for the null distribution would be a simulation due to the fact that hypothesis is based on the sample performance.  
+$$
+H_0:  \nu_{average \ response \ sample_a} > sample_b
+$$
+
+$$
+H_1:  \nu_{average \ response \ sample_a} < sample_b
+$$
+
+# 3. For this question, which involves testing sample methods of car parts to measure how they impact a car's drifting, 
