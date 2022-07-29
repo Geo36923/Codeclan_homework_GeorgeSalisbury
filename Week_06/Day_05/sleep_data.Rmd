@@ -18,14 +18,39 @@ data(msleep)
 ```
 
 ```{r}
-msleep
+msleep %>% 
+  clean_names()
 dim(msleep)
 names(msleep)
 head(msleep)
 tail(msleep)
 glimpse(msleep)
-msleep %>% 
-  filter(name == "J")
+
 ```
-H_0: mean_sleep_total(msleep) == mean_sleep_total(jabberwockies(7)) 
-H_a: mean_sleep_total(msleep) != mean_sleep_total(jabberwockies(7))
+
+```{r}
+mean(msleep$sleep_total)
+```
+
+H_0: mean_sleep_total(msleep) == mean_sleep_total(jabberwockies) = 7
+H_a: mean_sleep_total(msleep) != mean_sleep_total(jabberwockies) = 7
+```{r}
+jabberwocky_sleep <- 7
+sleep_stats <- msleep %>% 
+  summarise(mean_sleep = mean(sleep_total)) 
+
+sleep_stats %>% 
+  summarise(diff_sleep = mean_sleep - jabberwocky_sleep)
+```
+
+```{r}
+threshold <- 0.95
+```
+H_0: mean_sleep(omni) is significantly longer than mean_sleep(carni)
+H_a: mean_sleep(omni) is NOT significantly longer than mean_sleep(carni)
+```{r}
+Average_sleep_omni <- msleep %>% 
+  filter(vore == "omni") %>% 
+  summarise(mean_sleep = mean(sleep_total))
+```
+
