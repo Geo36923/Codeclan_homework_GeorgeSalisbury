@@ -120,4 +120,4 @@ $$
 H_1:  \nu_{average \ response \ sample_a} < sample_b
 $$
 
-# 3. For this question, which involves testing sample methods of car parts to measure how they impact a car's drifting, 
+# 3. For this question, which involves testing sample methods of car parts to measure how they impact a car's drifting, I would choose to measure the mean of the overall drifting distance to help choose which car parts to prioritize.  The null hypothesis would be if 
