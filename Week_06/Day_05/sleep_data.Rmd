@@ -120,4 +120,16 @@ $$
 H_1:  \nu_{average \ response \ sample_a} < sample_b
 $$
 
-# 3. For this question, which involves testing sample methods of car parts to measure how they impact a car's drifting, I would choose to measure the mean of the overall drifting distance to help choose which car parts to prioritize.  The null hypothesis would be if 
+# 3. For this question, which involves testing sample measurements of car parts to see whether or not they drift, I would choose to measure the proportion of parts that have drifted from both widths.  The null hypothesis would be if the part width of 145mm caused drifting, the hypothesis would be not rejected.  The alternate hypothesis would be if the other part widths caused drifting.The method I would use for the null distribution would be a simulation since the point of the tests is to test how the parts perform and whether or not they cause drifting.
+
+$$
+H_0:  \nu_{parts \ causing\ drifting (mm)} = 145
+$$
+
+
+$$
+H_1:  \nu_{parts \ causing\ drifting (mm)} != 145
+$$
+
+
+
