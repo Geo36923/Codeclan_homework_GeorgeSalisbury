@@ -69,20 +69,24 @@ Average_sleep_carni <- msleep %>%
 Diff_in_sleep <- msleep %>% 
   summarise(Average_sleep_omni - Average_sleep_carni)
 ```
-H_0: Proportion of domesticated animals in population is greater than 5%
-H_a: Proportion of domesticated animals in population is not greater than 5%
+H_0: Proportion of domesticated animals in population is not greater than 5%
+H_a: Proportion of domesticated animals in population is greater than 5%
+
 ```{r}
 dom_animals <-  msleep %>% 
-  mutate(is_domesticated = conservation == "domesticated")
-dom_stats <- dom_animals %>% 
-  specify(response = is_domesticated, success = )
+  mutate(is_domesticated = conservation == "domesticated") %>% 
+  filter(!is.na(is_domesticated)) %>% 
+  
+dom_stats <- dom_animals %>%
+  specify(response = is_domesticated, success = "TRUE")
+
 ```
 
 
 ```{r}
-dom_distribution <- msleep %>% 
-  filter(conservation == "domesticated") %>% 
-  specify(response = conservation, success = "domesticated") %>%  
+dom_distribution <- dom_animals %>% 
+   
+  specify(response = is_domesticated, success = "TRUE") %>%  
   hypothesise(null = "point", p = 0.05) %>% 
   generate(reps = 1000, type = "draw") %>% 
   calculate(stat = "prop")
