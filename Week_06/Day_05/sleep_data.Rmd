@@ -1,0 +1,31 @@
+```{r}
+library(prob)
+library(tidyverse)
+library(janitor)
+library(assertr)
+library(fastGraph)
+library(infer)
+library(e1071)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+
+data(msleep)
+```
+
+```{r}
+msleep
+dim(msleep)
+names(msleep)
+head(msleep)
+tail(msleep)
+glimpse(msleep)
+msleep %>% 
+  filter(name == "J")
+```
+H_0: mean_sleep_total(msleep) == mean_sleep_total(jabberwockies(7)) 
+H_a: mean_sleep_total(msleep) != mean_sleep_total(jabberwockies(7))
