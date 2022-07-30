@@ -131,5 +131,8 @@ $$
 H_1:  \nu_{parts \ causing\ drifting (mm)} != 145
 $$
 
+```{r}
+
+```
 
 
