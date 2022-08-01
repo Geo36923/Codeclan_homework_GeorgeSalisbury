@@ -132,7 +132,90 @@ H_1:  \nu_{parts \ causing\ drifting (mm)} != 145
 $$
 
 ```{r}
+null_distribution <- msleep %>%
+  specify(response = sleep_total) %>%
+  hypothesize(null = "point", mu = 7) %>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "mean")
 
+obs_stat <- msleep %>%
+  specify(response = sleep_total) %>%
+  calculate(stat = "mean")
+
+null_distribution %>%
+  visualise() +
+  shade_p_value(direction = "both", obs_stat = obs_stat)
+
+null_distribution %>%
+  get_p_value(direction = "both", obs_stat = obs_stat)
 ```
 
+```{r}
+msleep %>%
+  distinct(vore)
+
+null_distribution <- msleep %>%
+  filter(vore %in% c("omni", "herbi")) %>%
+  specify(sleep_total ~ vore) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 10000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("omni", "herbi"))
+
+obs_stat <- msleep %>%
+  filter(vore %in% c("omni", "herbi")) %>%
+  specify(sleep_total ~ vore) %>%
+  calculate(stat = "diff in means", order = c("omni", "herbi"))
+
+null_distribution %>%
+  visualise() +
+  shade_p_value(direction = "right", obs_stat = obs_stat)
+
+null_distribution %>%
+  get_p_value(direction = "right", obs_stat = obs_stat)
+```
+
+```{r}
+msleep %>%
+  distinct(conservation)
+
+msleep_domesticated <- msleep %>%
+  mutate(is_domesticated = conservation == "domesticated") %>%
+  filter(!is.na(is_domesticated))
+
+null_distribution <- msleep_domesticated %>%
+  specify(response = is_domesticated, success = "TRUE") %>%
+  hypothesize(null = "point", p = 0.05) %>%
+  generate(reps = 10000, type = "draw") %>%
+  calculate(stat = "prop")
+
+obs_stat <- msleep_domesticated %>%
+  specify(response = is_domesticated, success = "TRUE") %>%
+  calculate(stat = "prop")
+
+null_distribution %>%
+  visualise() +
+  shade_p_value(direction = "right", obs_stat = obs_stat)
+
+null_distribution %>%
+  get_p_value(direction = "right", obs_stat = obs_stat)
+
+msleep_domesticated_flag <- msleep %>%
+  mutate(domesticated_flag = if_else(conservation == "domesticated", 1, 0))
+
+null_distribution <- msleep_domesticated_flag %>%
+  specify(response = domesticated_flag) %>%
+  hypothesize(null = "point", mu = 0.05) %>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+null_distribution %>%
+  visualise() +
+  shade_p_value(direction = "right", obs_stat = obs_stat)
+
+null_distribution %>%
+  get_p_value(direction = "right", obs_stat = obs_stat)
+
+library(tidyverse)
+transactions <- read_csv("data/online_retail_subset.csv")
+```
 
