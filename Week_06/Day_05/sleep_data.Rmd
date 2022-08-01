@@ -52,8 +52,8 @@ sample_sleep
 ```
 
 ```{r}
-threshold <- 0.05
-ci_sleep <- 
+# threshold <- 0.05
+# ci_sleep <- 
 ```
 H_0: mean_sleep(omni) is significantly longer than mean_sleep(carni)
 H_a: mean_sleep(omni) is NOT significantly longer than mean_sleep(carni)
@@ -73,13 +73,42 @@ H_0: Proportion of domesticated animals in population is not greater than 5%
 H_a: Proportion of domesticated animals in population is greater than 5%
 
 ```{r}
-dom_animals <-  msleep %>% 
+dom_animals <- msleep %>% 
   mutate(is_domesticated = conservation == "domesticated") %>% 
-  filter(!is.na(is_domesticated)) %>% 
+  filter(!is.na(is_domesticated)) 
   
-dom_stats <- dom_animals %>%
-  specify(response = is_domesticated, success = "TRUE")
+sleep_distribution <- dom_animals %>% 
+  specify(response = is_domesticated, success = "TRUE") %>%
+  hypothesize(null = "point", p = 0.05) %>%
+  generate(reps = 10000, type = "draw") %>%
+  calculate(stat = "prop")
 
+dom_stats <- dom_animals %>%
+  specify(response = is_domesticated, success = "TRUE") %>% 
+  calculate(stat = "prop")
+
+sleep_distribution %>%
+  visualise() +
+  shade_p_value(direction = "right", obs_stat = dom_stats)
+
+sleep_distribution %>%
+  get_p_value(direction = "right", obs_stat = dom_stats)
+
+```
+
+```{r}
+msleep_domesticated_flag <- msleep %>%
+  mutate(domesticated_flag = if_else(conservation == "domesticated", 1, 0))
+
+null_distribution <- msleep_domesticated_flag %>%
+  specify(response = domesticated_flag) %>%
+  hypothesize(null = "point", mu = 0.05) %>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+null_distribution %>%
+  visualise() +
+  shade_p_value(direction = "right", obs_stat = dom_stats)
 ```
 
 
@@ -217,5 +246,66 @@ null_distribution %>%
 
 library(tidyverse)
 transactions <- read_csv("data/online_retail_subset.csv")
+```
+
+```{r}
+total_transactions <- transactions %>%
+  summarise(n = n_distinct(InvoiceNo)) %>%
+  flatten_dbl()
+
+support_a <- transactions %>%
+  filter(StockCode == 22469) %>%
+  summarise(prop_invoices_with_item = n_distinct(InvoiceNo) / total_transactions)
+
+support_a
+```
+
+```{r}
+trans_feat_a <- transactions %>%
+  filter(StockCode == "22469") %>%
+  distinct(InvoiceNo)
+
+trans_feat_b <- transactions %>%
+  filter(StockCode == "21110") %>%
+  distinct(InvoiceNo)
+
+trans_feat_a_b <- trans_feat_a %>%
+  inner_join(trans_feat_b, by = "InvoiceNo")
+
+support_a_b <- trans_feat_a_b %>%
+  summarise(prop_with_a_b = n() / total_transactions)
+support_a_b
+```
+
+```{r}
+confidence_a_b <- support_a_b / support_a
+confidence_a_b
+```
+
+```{r}
+support_b <- transactions %>%
+  filter(StockCode == 21110) %>%
+  summarise(prop_invoices_with_item = n_distinct(InvoiceNo)/total_transactions)
+
+lift_a_b <- support_a_b / (support_a * support_b)
+
+lift_a_b
+```
+
+```{r}
+install.packages("arules")
+install.packages("arulesViz")
+library(arules)
+library(arulesViz)
+
+transactions_reformat <- transactions %>%
+  select(InvoiceNo, Description) %>%
+  na.omit()
+
+write_csv(transactions_reformat, "transactions_reformat.csv")
+
+apriori_format <- read.transactions("transactions_reformat.csv", format = "single", sep = ",", header = TRUE, cols = c("InvoiceNo", "Description"))
+
+inspect(head(apriori_format))
 ```
 
